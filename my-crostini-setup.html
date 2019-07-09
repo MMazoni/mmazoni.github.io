@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Configurando Crostini para desenvolvimento</title>
+
+            <link href="https://mmazoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Mazoni Blog Full Atom Feed" />
+            <link href="https://mmazoni.github.io/feeds/chromeos.atom.xml" type="application/atom+xml" rel="alternate" title="Mazoni Blog Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="https://mmazoni.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="https://mmazoni.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="https://mmazoni.github.io/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Instalação inicial do Linux container: "Crostini"">
+
+        <meta name="author" content="Matheus Mazoni">
+
+        <meta name="tags" content="crostini">
+        <meta name="tags" content="python">
+        <meta name="tags" content="vim">
+        <meta name="tags" content="zsh">
+        <meta name="tags" content="node-js">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Mazoni Blog">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="https://mmazoni.github.io/author/matheus-mazoni.html">
+	<meta property="og:url" content="https://mmazoni.github.io/my-crostini-setup.html">
+	<meta property="og:title" content="Configurando Crostini para desenvolvimento">
+	<meta property="article:published_time" content="2019-04-13 22:20:00-03:00">
+            <meta property="og:description" content="Instalação inicial do Linux container: "Crostini"">
+
+            <meta property="og:image" content="https://mmazoni.github.io/theme/images/post-bg.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@mazoni_matheus">
+        <meta name="twitter:title" content="Configurando Crostini para desenvolvimento">
+
+            <meta name="twitter:image" content="https://mmazoni.github.io/theme/images/post-bg.jpg">
+
+            <meta name="twitter:description" content="Instalação inicial do Linux container: "Crostini"">
+</head>
+
+<body class="article-my-crostini-setup">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://mmazoni.github.io/">Mazoni Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('https://mmazoni.github.io/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Configurando Crostini para desenvolvimento</h1>
+                        <span class="meta">Posted by
+                                <a href="https://mmazoni.github.io/author/matheus-mazoni.html">Matheus Mazoni</a>
+                             on Sat 13 April 2019
+                        </span>
+                            <span class="meta">Updated on Mon 03 June 2019</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <h2>Cromebook setup</h2>
+<p>Primeiramente vamos fazer o update e upgrade do sistema. Lembrando que o Crostini é um container Linux baseado em Debian Stretch.</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="k">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">upgrade</span>
+</pre></div>
+
+
+<p>Agora, vamos instalar alguns pré-requisitos para compilar o código fonte dessas aplicações no Crostini, como o <em>python</em> e o <em>vim</em>:</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">clang</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">libbz2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">wget</span> <span class="n">curl</span> <span class="n">llvm</span> <span class="n">libncurses5</span><span class="o">-</span><span class="n">dev</span> <span class="n">libncursesw5</span><span class="o">-</span><span class="n">dev</span> <span class="n">xz</span><span class="o">-</span><span class="n">utils</span> <span class="n">tk</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+
+
+<h3>Python</h3>
+<p>Primeiramente vou instalar o <code>python3.7</code>, compilando o código-fonte, pois o python3 padrão do repositório Debian não funcionou o <em>jupyter notebook</em>.</p>
+<blockquote>
+<p>A versão do python que for instalado pode ser facilmente alterado, mudando nas instruções abaixo o número da versão. Ao invés de ser <code>3.7.2</code> poderia muito bem ser <code>3.6.5</code> (ou qualquer outro), o primeiro comando ficaria: "wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz" e assim por diante.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">python</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">python</span><span class="o">/</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span><span class="o">/</span><span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="n">tgz</span>
+<span class="n">tar</span> <span class="n">xzf</span> <span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="n">tgz</span>
+<span class="n">cd</span> <span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span>
+<span class="p">.</span><span class="o">/</span><span class="n">configure</span> <span class="c1">--enable-optimizations</span>
+<span class="n">make</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+<span class="n">cd</span> <span class="p">..</span>
+<span class="n">sudo</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span>
+</pre></div>
+
+
+<h3>Vim</h3>
+<p>Como o python, iremos compilar também o vim para habilitar o interpretador.</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">remove</span> <span class="n">vim</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="n">vim</span><span class="p">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">vim</span>
+<span class="p">.</span><span class="o">/</span><span class="n">configure</span> <span class="c1">--with-features=huge \</span>
+    <span class="c1">--enable-multibyte \</span>
+    <span class="c1">--enable-python3interp=yes \        --with-python3-config-dir=/usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/ \</span>
+    <span class="c1">--enable-gui=gtk2 \</span>
+    <span class="c1">--enable-cscope \</span>
+    <span class="c1">--prefix=/usr/local \</span>
+    <span class="c1">--with-tlib=ncurses</span>
+<span class="n">make</span> <span class="n">VIMRUNTIMEDIR</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="n">vim80</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">altinstall</span>
+<span class="n">cd</span> <span class="p">..</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">vim</span>
+</pre></div>
+
+
+<p>Existem vários gerenciadores de plugins do vim, o que utilizo é o <em>Vundle</em>.</p>
+<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">gmarik</span><span class="o">/</span><span class="n">Vundle</span><span class="p">.</span><span class="n">vim</span><span class="p">.</span><span class="n">git</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span><span class="o">/</span><span class="n">Vundle</span><span class="p">.</span><span class="n">vim</span>
+</pre></div>
+
+
+<p>É preciso criar um arquivo .vimrc para colocar as configurações do vim, se quiser utilizar as <a href="https://github.com/MMazoni/configuration-files/blob/master/.vimrc">minhas configurações</a>.</p>
+<h3>Fish</h3>
+<p>Eu comecei utilizar o <code>fish</code> por causa de uma vídeo aula em que o instrutor usava, o autocomplete dele é muito bom, ele é bem leve e não precisa quase de configuração, diferente do <em>zsh</em> que é o mais famoso e utilizado por programadores, por sua alta customização e variedade de plugins. Eles são uma alternativa ao padrão <em>bash</em>:</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">fish</span>
+<span class="n">which</span> <span class="n">fish</span>
+</pre></div>
+
+
+<p>Pegue o que retornou desse comando, normalmente <code>/usr/bin/fish</code>, e coloque no lugar onde esteja o <code>/bin/bash</code> na linha do seu <strong>username</strong> no arquivo <code>passwd</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vim</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">passwd</span>
+</pre></div>
+
+
+<h3>Node-js</h3>
+<p>Iremos baixar do site oficial a versão 10.16.0 LTS.</p>
+<div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nodejs</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">v10</span><span class="p">.</span><span class="mi">16</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">v10</span><span class="p">.</span><span class="mi">16</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">xz</span>
+<span class="n">mkdir</span> <span class="p">.</span><span class="n">nodejs</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">xJvf</span> <span class="n">node</span><span class="o">-</span><span class="n">v10</span><span class="p">.</span><span class="mi">16</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">xz</span> <span class="o">-</span><span class="k">C</span> <span class="o">~/</span><span class="p">.</span><span class="n">nodejs</span>
+</pre></div>
+
+
+<p>Precisamos adicionar a pasta <code>.nodejs/bin</code> como PATH(lembrando que vou mostrar com os comandos do fish, se você usar o bash ou zsh, é diferente):</p>
+<div class="highlight"><pre><span></span><span class="n">echo</span> <span class="ss">&quot;set -x PATH ~/.nodejs/node-v10.16.0-linux-x64/bin $PATH&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">config</span><span class="o">/</span><span class="n">fish</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">fish</span>
+<span class="k">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">config</span><span class="o">/</span><span class="n">fish</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">fish</span>
+</pre></div>
+
+
+<h3>Python Modules</h3>
+<p>Algumas bibliotecas do python que utilizo no meu estudo de <code>data science</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="c1">--upgrade pip --user</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">jupyter</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">numpy</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">scipy</span> <span class="c1">--user</span>
+</pre></div>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="https://mmazoni.github.io/tag/crostini.html">crostini</a>, <a href="https://mmazoni.github.io/tag/python.html">python</a>, <a href="https://mmazoni.github.io/tag/vim.html">vim</a>, <a href="https://mmazoni.github.io/tag/zsh.html">zsh</a>, <a href="https://mmazoni.github.io/tag/node-js.html">node-js</a></p>
+        </div>
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/matheus-mazoni/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/mazoni_matheus">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/MMazoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/mazoni.matheus">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:mmazoni.andrade@gmail.com">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Matheus Mazoni
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://mmazoni.github.io/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://mmazoni.github.io/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="https://mmazoni.github.io/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-140012978-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</body>
+
+</html>
