@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Mazoni Blog</title><link href="https://mmazoni.com/" rel="alternate"></link><link href="https://mmazoni.com/feeds/dev.atom.xml" rel="self"></link><id>https://mmazoni.com/</id><updated>2019-06-09T14:12:00-03:00</updated><entry><title>Comandos Básicos de Git/Github</title><link href="https://mmazoni.com/git-github.html" rel="alternate"></link><published>2019-06-09T14:12:00-03:00</published><updated>2019-06-09T14:12:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.com,2019-06-09:git-github.html</id><summary type="html">&lt;h2&gt;Comandos Básicos de Git/Github&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Mazoni Blog</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/dev.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2019-06-09T14:12:00-03:00</updated><entry><title>Comandos Básicos de Git/Github</title><link href="https://mmazoni.github.io/git-github.html" rel="alternate"></link><published>2019-06-09T14:12:00-03:00</published><updated>2019-06-09T14:12:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-06-09:git-github.html</id><summary type="html">&lt;h2&gt;Comandos Básicos de Git/Github&lt;/h2&gt;
 &lt;p&gt;O primeiro comando para iniciar o repositório local:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt; &lt;span class="n"&gt;folder&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -146,7 +146,7 @@ Para colocar o vim como o editor padrão ao fazer "git commit":&lt;/p&gt;
 
     git fetch
 
-Pŕoximos assuntos para completar--&gt;</summary><category term="git"></category><category term="github"></category></entry><entry><title>Testando post com jupyter</title><link href="https://mmazoni.com/jupyter-post.html" rel="alternate"></link><published>2019-04-15T23:11:00-03:00</published><updated>2019-04-15T23:11:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.com,2019-04-15:jupyter-post.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+Pŕoximos assuntos para completar--&gt;</summary><category term="git"></category><category term="github"></category></entry><entry><title>Testando post com jupyter</title><link href="https://mmazoni.github.io/jupyter-post.html" rel="alternate"></link><published>2019-04-15T23:11:00-03:00</published><updated>2019-04-15T23:11:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-04-15:jupyter-post.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
