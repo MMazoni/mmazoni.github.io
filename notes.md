@@ -1,3 +1,5 @@
+## Initial project
+
 mkdir mazoni-blog
 cd mazoni-blog/
 
@@ -22,6 +24,8 @@ matplotlib==1.5.1
 
 pip install -r requirements.txt
 
+## Pelican
+
 pelican-quickstart
 
 git init
@@ -39,11 +43,15 @@ cd output
 
 python -m http.server
 
+## Pelican Themes
+
 git clone git@github.com:gilsondev/pelican-clean-blog.git
 
 pelican-themes -l
 
 pelican-themes -i ~/pelican-clean-blog
+
+## Publish
 
 pelican content -s publishconf.py
 
@@ -52,6 +60,8 @@ git checkout -b dev
 ghp-import output -b master
 
 git push origin master
+
+## MISC
 
 git remote add origin git@github.com:MMazoni/MMazoni.github.io.git
 

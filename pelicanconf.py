@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Matheus Mazoni'
-SITENAME = 'Mazoni Blog'
+SITENAME = 'MMazoni Blog'
 SITEURL = 'https://mmazoni.github.io'
 
 PATH = 'content'
@@ -38,7 +38,5 @@ DEFAULT_PAGINATION = 10
 #RELATIVE_URLS = True
 MARKUP = ('md', 'ipynb')
 THEME = "pelican-clean-blog"
-PLUGIN_PATHS = ['./plugins']
-PLUGINS = ['ipynb.markup']
 IGNORE_FILES = [".ipynb_checkpoints"]
 GOOGLE_ANALYTICS ='UA-140012978-1' 

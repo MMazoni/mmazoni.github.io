@@ -1,5 +1,6 @@
 Title: Montando meu PC Gamer
 Date: 2019-07-09 12:46
+Modified: 2019-10-07 21:50
 Tags: pc, gamer, aliexpress
 Slug: pc-gamer
 Authors: Matheus Mazoni
@@ -28,11 +29,15 @@ Breve resumo do que comprei e preços:
 | `Gabinete` | NOX  | MODUS ATX, USB 3.0, 1 FAN Incluso, Janela Lateral Transparente, Azul  | KaBuM!  | R$ 108,80 à vista + frete  |
 | `Teclado` | Redragon  | Mecânico Kumara, LED Vermelho, Switch Outemu Brown, PT - K552  |  KaBuM! |    R$ 175, 90 à vista + frete |
 | `Headphone` | Sony | Preto MDR-ZX110/B  |  KaBuM! |  R$ 48,90 à vista + frete |
+| `Placa de vídeo` | Asus | GTX 1650 4GB GDDR5 | Pichau | R$ 699,98 à vista + R$ 19,67 de frete |
 
 
-Obs: O valor total do frete dos produtos comprado na KaBuM! foi R$ 55,39.
+Obs: O valor total do frete dos produtos comprado na KaBuM! foi R$ 75,06.
 
-Obs2: O valor total dos produtos com o frete é R$ 1488,86.
+Obs2: O valor total dos produtos com o frete é R$ 2208,51.
 
+Como não possuo muito conhecimento para montar um computador, as peças que escolhi foram baseadas em um vídeo do canal _MW Informática_, em que ele mostrou que era possível ter um PC bom e não gastar tanto assim. Era pra sair mais caro se eu comprasse uma placa de vídeo, mais memória, um SSD. Porém, tudo o que comprei vai ser o suficiente para mim agora. Quando eu puder ou precisar aumentar a potência do computador, aí penso em melhorá-lo.
 
-Como não possuo muito conhecimento para montar um computador, as peças que escolhi foram baseadas em um vídeo do canal _MW Informática_, em que ele mostrou que era possível ter um PC bom e não gastar tanto assim. Era pra sair mais caro se eu comprasse uma placa de vídeo, mais memória, um SSD. Porém, tudo o que comprei vai ser o suficiente para mim agora. Quando eu puder ou precisar aumentar a potência do computar, aí penso em melhorá-lo.
+#### Atualização 
+
+Aconteceu uma coisa interessante quando chegaram as peças, o computador simplesmente não ligava, nem eu e meu irmão(mais experiente no assunto) sabia o que estava acontecendo. Um amigo meu disse que processadores AMD precisavam de uma placa de vídeo, pois não eram como os da Intel que possuem placa On-Board. Então, me vi obrigado a comprar uma placa de vídeo. O que tinha economizado até aqui foi por água a baixo. Eu queria uma placa boa o suficiente para ter uma vida útil razoável, mas não tão boa que custasse um rim.
