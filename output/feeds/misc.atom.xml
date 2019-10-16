@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2019-10-07T21:50:00-03:00</updated><entry><title>Montando meu PC Gamer</title><link href="https://mmazoni.github.io/pc-gamer.html" rel="alternate"></link><published>2019-10-07T21:50:00-03:00</published><updated>2019-10-07T21:50:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-07-09:pc-gamer.html</id><summary type="html">&lt;h2&gt;Comprando as peças pela internet&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2019-10-15T22:59:00-03:00</updated><entry><title>Você conhece o Anki?</title><link href="https://mmazoni.github.io/anki.html" rel="alternate"></link><published>2019-10-15T22:59:00-03:00</published><updated>2019-10-15T22:59:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-10-15:anki.html</id><summary type="html">&lt;h2&gt;Estudos por Flashcards&lt;/h2&gt;
+&lt;p&gt;O &lt;a href="https://apps.ankiweb.net/"&gt;Anki&lt;/a&gt; é um programa open-source desenvolvido em python que utiliza uma técnica chamada &lt;code&gt;flashcard&lt;/code&gt;, conheci na época do meu estudo para o vestibular. O flashcard é um cartão com dois lados, a frente com alguma informação(pergunta) e o verso estaria com a resposta(exatamente aquilo que você quer memorizar). É uma técnica fantástica para memorizar conceitos, fatos e informações pontuais.&lt;/p&gt;
+&lt;p&gt;Existe outros softwares de flashcards, mas apenas conheço o Anki, como sempre atendeu minhas expectativas nunca precisei procurar por outro. Ele é multiplataforma, tem para Windows, MacOS, Linux, Android, IOS e Web.&lt;/p&gt;
+&lt;p&gt;Eu prefiro utilizar o &lt;a href="https://ankiweb.net/"&gt;AnkiWeb&lt;/a&gt;, pois não precisa instalar nada. Consigo sincronizar meus &lt;em&gt;decks&lt;/em&gt; pela minha conta em qualquer lugar, apenas acessando o site e logando.&lt;/p&gt;
+&lt;p&gt;Faz muito tempo que não utilizo o Anki, uma matéria(Redes de Computadores) da faculdade me fez lembrar dessa ferramenta para me auxiliar sem gastar muito tempo de estudo. O professor utiliza questões de verdadeiro ou falso e ele possui um vasto banco de  questões, com isso achei que o Anki e a técnica de flashcards se aplicaria muito bem nessa situação.&lt;/p&gt;
+&lt;p&gt;Aqui seria a minha tela de Decks:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anki-home" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5da4c48a6d0ad462fafe764d/c1ce32fddc48d77ccf84199000c144e4/anki1.png" title="Minha tela de Decks" /&gt;&lt;/p&gt;
+&lt;p&gt;Como é mostrado logo no rodapé da imagem, é possível compartilhar seus Decks e adicionar Decks de outras pessoas.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anki2" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5da4c48a6d0ad462fafe764d/c45a8bd3e7067656e1fe98c32447a288/anki2.png" title="frente de um card" /&gt;&lt;/p&gt;
+&lt;p&gt;Aqui seria a frente do card. Clique em &lt;strong&gt;Show Answer&lt;/strong&gt; quando você mentalizar na cabeça qual seria a resposta.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anki3" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5da4c48a6d0ad462fafe764d/d0ce34496e03371613692d501352a330/anki3.png" title="verso do card" /&gt;&lt;/p&gt;
+&lt;p&gt;No verso do card está a resposta e nos butões estão as dificuldades que você achou da pergunta. O Anki utiliza &lt;code&gt;Repetição Espaçada&lt;/code&gt;, quanto mais você vai acertando mais longe você irá ver esse card novamente. Caso tenha errado ela irá aparecer novamente em 10 minutos para revisão.&lt;/p&gt;
+&lt;p&gt;Na hora de criar um card é simples, apenas selecione o Deck, coloque a informação na frente e no verso e crie. Há possibilidade de colocar tags e também utilizar diferentes tipos de cards.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anki4" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5da4c48a6d0ad462fafe764d/4c98e0a858ad7390bf3977ceb63c4f1c/anki4.png" title="criação de um card" /&gt;&lt;/p&gt;
+&lt;p&gt;Há muitas possibilidades de estudo com o Anki, concurseiros e vestibulandos utilizam muito aqui no Brasil. Em geral são usados para estudar:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fórmulas matemáticas&lt;/li&gt;
+&lt;li&gt;Leis e datas&lt;/li&gt;
+&lt;li&gt;Mapas e geografia&lt;/li&gt;
+&lt;li&gt;Uma nova língua&lt;/li&gt;
+&lt;li&gt;Provas e exames&lt;/li&gt;
+&lt;li&gt;Acordes de música&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;O Anki é de grande ajuda na hora de estudar, quando você cria os Decks em si já é um estudo, depois é só ir revisando sempre utilizando a Repetição Espaçada, que é nativo da aplicação. Eu tinha deixado de usar, mas vou ver se consigo colocar de novo na minha rotina e usá-lo no meu estudo de programação.  &lt;/p&gt;
+&lt;!-- ### Repetição Espaçada
+
+### Cartões de 2 lados
+
+### Cartões de 3 lados
+
+### Completar frases
+
+### Cartões com mídias
+
+### Decks populares
+
+### Add-ons --&gt;</summary><category term="anki"></category><category term="flashcard"></category><category term="estudo"></category></entry><entry><title>Montando meu PC Gamer</title><link href="https://mmazoni.github.io/pc-gamer.html" rel="alternate"></link><published>2019-10-07T21:50:00-03:00</published><updated>2019-10-07T21:50:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-07-09:pc-gamer.html</id><summary type="html">&lt;h2&gt;Comprando as peças pela internet&lt;/h2&gt;
 &lt;p&gt;Pesquisei muito antes de escolher os sites e marcas para comprar na internet, não sou nenhum expert em hardware, mas tinha uma ideia exatamente o que queria: um computador com custo-benefício na faixa dos 1.400~1.600 e que eu possa fazer upgrade no futuro.&lt;/p&gt;
 &lt;p&gt;Apesar do título ser sobre PC gamer, meu foco principal não é jogar nem programar jogos - por isso não comprei placa de vídeo -, no entanto um PC potente de baixo custo para eu ter alternativas de programar coisas que depende de uma máquina mais robusta(que rode Android Studio por exemplo). &lt;/p&gt;
 &lt;p&gt;Estou com saudade também do meu velho amigo Linux, para eu customizar, criar máquinas virtuais, testar novas &lt;code&gt;distros&lt;/code&gt; e etc. Apesar do Chromebook estar me servindo muito bem, ele não supre 100% minhas necessidades. &lt;/p&gt;
