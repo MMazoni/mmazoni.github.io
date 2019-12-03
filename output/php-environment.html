@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Ambiente de desenvolvimento em PHP</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="https://mmazoni.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="https://mmazoni.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="https://mmazoni.github.io/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Ambiente de desenvolvimento em PHP no trabalho">
+
+        <meta name="author" content="Matheus Mazoni">
+
+        <meta name="tags" content="php">
+        <meta name="tags" content="coding">
+        <meta name="tags" content="environment">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="MMazoni Blog">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="https://mmazoni.github.io/author/matheus-mazoni.html">
+	<meta property="og:url" content="https://mmazoni.github.io/php-environment.html">
+	<meta property="og:title" content="Ambiente de desenvolvimento em PHP">
+	<meta property="article:published_time" content="2019-12-02 21:12:00-02:00">
+            <meta property="og:description" content="Ambiente de desenvolvimento em PHP no trabalho">
+
+            <meta property="og:image" content="https://mmazoni.github.io/theme/images/post-bg.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@mazoni_matheus">
+        <meta name="twitter:title" content="Ambiente de desenvolvimento em PHP">
+
+            <meta name="twitter:image" content="https://mmazoni.github.io/theme/images/post-bg.jpg">
+
+            <meta name="twitter:description" content="Ambiente de desenvolvimento em PHP no trabalho">
+</head>
+
+<body class="article-php-environment">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://mmazoni.github.io/">MMazoni Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('https://mmazoni.github.io/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Ambiente de desenvolvimento em PHP</h1>
+                        <span class="meta">Posted by
+                                <a href="https://mmazoni.github.io/author/matheus-mazoni.html">Matheus Mazoni</a>
+                             on seg 02 dezembro 2019
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <h2>Ambiente Desenvolvimento PHP</h2>
+<p>Antes eu comecei utilizando Windows com o Xampp(Apache, MySQL e PHP), no entanto sou muito fã do Linux, pedi para meu gerente se eu poderia instalar uma distribuição de meu interesse. Ele também gosta de Linux, então ele autorizou sem problemas. Depois da migração, eu vi que não precisava mais do Xampp(uso bem pouco hoje em dia), ainda mais que o PHP e o Laravel conseguem subir um servidor para testar o código.</p>
+<p>Agora vou mostrar o ambiente de desenvolvimento que preparei no Ubuntu 19.10 no trabalho.</p>
+<h3>1 - Oracle Client (oci8)</h3>
+<p>Faça o download de acordo com sua máquina do <a href="https://www.oracle.com/database/technologies/instant-client/linux-x86-64-downloads.html">Oracle Instant Client</a> dos arquivos que tiver <code>basic</code> e <code>sdk</code>.</p>
+<ul>
+<li>Arquivos de exemplo do linux x64: <em>instantclient-basic-linux.x64-19.3.0.0.0dbru.zip</em> e <em>instantclient-sdk-linux.x64-19.3.0.0.0dbru.zip</em></li>
+</ul>
+<p>Na pasta <em>Downloads</em>:</p>
+<div class="highlight"><pre><span></span>mkdir oracle
+mv instantclient-basic-linux.x64-19.3.0.0.0dbru.zip oracle/
+mv instantclient-sdk-linux.x64-19.3.0.0.0dbru.zip oracle/
+<span class="nb">cd</span> oracle
+unzip instantclient-basic-linux.x64-19.3.0.0.0dbru.zip
+unzip instantclient-sdk-linux.x64-19.3.0.0.0dbru.zip
+<span class="nb">cd</span> ..
+sudo mv oracle /opt/
+</pre></div>
+
+
+<p>Adicione a pasta ao <strong>ldconfig</strong> e use o comando.</p>
+<div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">LD_LIBRARY_PATH</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">oracle</span><span class="o">/</span><span class="n">instantclient_19_3</span>
+<span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="k">c</span> <span class="ss">&quot;echo /opt/oracle/instantclient_19_3 &gt; /etc/ld.so.conf.d/oracle-instantclient.conf&quot;</span>
+<span class="n">sudo</span> <span class="n">ldconfig</span>
+</pre></div>
+
+
+<p>Utilizamos o banco Oracle e precisamos da extensão <code>oci8</code> no PHP, iremos ativar na compilação dele.</p>
+<h3>2 - PHP (7.3.12)</h3>
+<p>Há duas formas mais comuns de instalar o PHP no Linux, usar os comandos no terminal e usar a versão do repositório ou compilar o código fonte. Eu prefiro compilar pois eu consigo ter controle de todas as extensões que estou instalando.</p>
+<p>Instale as dependências</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">autoconf</span> <span class="n">automake</span> <span class="n">bison</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">curl</span> <span class="n">flex</span> <span class="err">\</span>
+    <span class="n">libtool</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libcurl4</span><span class="o">-</span><span class="n">openssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libonig</span><span class="o">-</span><span class="n">dev</span> <span class="err">\</span>
+    <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">libzip</span><span class="o">-</span><span class="n">dev</span> <span class="n">nginx</span> <span class="n">openssl</span> <span class="err">\</span>
+    <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">re2c</span> <span class="n">sqlite3</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> 
+</pre></div>
+
+
+<p><a href="https://www.php.net/downloads.php">Baixe o PHP</a>. Lembrando que utilizei a versão 7.3. Descompacte e entre no diretório pelo terminal.</p>
+<p>Crie um diretório para separar de outras versões do PHP e compile</p>
+<div class="highlight"><pre><span></span><span class="n">mkdir</span>  <span class="o">~/</span><span class="n">php7</span><span class="p">.</span><span class="mi">3</span><span class="o">/</span>
+
+<span class="p">.</span><span class="o">/</span><span class="n">configure</span> <span class="c1">--prefix=$HOME/php7.3 \</span>
+    <span class="c1">--enable-mysqlnd \</span>
+    <span class="c1">--with-pdo-mysql \</span>
+    <span class="c1">--with-pdo-mysql=mysqlnd \</span>
+    <span class="c1">--with-mysqli=mysqlnd \</span>
+    <span class="c1">--enable-bcmath \</span>
+    <span class="c1">--enable-fpm \</span>
+    <span class="c1">--with-fpm-user=www-data \</span>
+    <span class="c1">--with-fpm-group=www-data \</span>
+    <span class="c1">--enable-mbstring \</span>
+    <span class="c1">--enable-phpdbg \</span>
+    <span class="c1">--enable-shmop \</span>
+    <span class="c1">--enable-sockets \</span>
+    <span class="c1">--enable-sysvmsg \</span>
+    <span class="c1">--enable-sysvsem \</span>
+    <span class="c1">--enable-sysvshm \</span>
+    <span class="c1">--enable-zip \</span>
+    <span class="c1">--with-libzip=/usr/lib/x86_64-linux-gnu \</span>
+    <span class="c1">--with-zlib \</span>
+    <span class="c1">--with-curl \</span>
+    <span class="c1">--with-pear \</span>
+    <span class="c1">--with-openssl \</span>
+    <span class="c1">--enable-pcntl \</span>
+    <span class="c1">--with-readline \</span>
+    <span class="c1">--with-pdo-sqlite \</span>
+    <span class="c1">--with-oci8=instantclient,/opt/oracle/instantclient_19_3</span>
+
+<span class="n">make</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+
+
+<ol>
+<li>Agora, algumas modificações para tudo dar certo.</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">php</span><span class="p">.</span><span class="n">ini</span><span class="o">-</span><span class="n">development</span> <span class="o">~/</span><span class="n">php7</span><span class="p">.</span><span class="mi">3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">php</span><span class="p">.</span><span class="n">ini</span>
+<span class="n">cd</span> <span class="o">~/</span><span class="n">php7</span><span class="p">.</span><span class="mi">3</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span>
+<span class="n">mv</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span><span class="p">.</span><span class="n">conf</span>
+<span class="n">mv</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+
+
+<p>Adicione a caminho ~/php7.3/bin <a href="https://gist.github.com/nex3/c395b2f8fd4b02068be37c961301caa7">para a variável $PATH</a></p>
+<p>Para testar se o PHP está funcionando.</p>
+<div class="highlight"><pre><span></span><span class="n">php</span> <span class="c1">--version</span>
+</pre></div>
+
+
+<p>O output:</p>
+<div class="highlight"><pre><span></span><span class="n">PHP</span> <span class="mi">7</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="mi">12</span> <span class="p">(</span><span class="n">cli</span><span class="p">)</span> <span class="p">(</span><span class="n">built</span><span class="p">:</span> <span class="nb">Dec</span> <span class="mi">02</span> <span class="mi">2019</span> <span class="mi">20</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">45</span><span class="p">)</span> <span class="p">(</span> <span class="n">NTS</span> <span class="p">)</span>
+<span class="n">Copyright</span> <span class="p">(</span><span class="k">c</span><span class="p">)</span> <span class="mi">1997</span><span class="o">-</span><span class="mi">2019</span> <span class="n">The</span> <span class="n">PHP</span> <span class="k">Group</span>
+<span class="n">Zend</span> <span class="n">Engine</span> <span class="n">v3</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="mi">11</span><span class="p">,</span> <span class="n">Copyright</span> <span class="p">(</span><span class="k">c</span><span class="p">)</span> <span class="mi">1998</span><span class="o">-</span><span class="mi">2019</span> <span class="n">Zend</span> <span class="n">Technologies</span>
+</pre></div>
+
+
+<h2>3 - Composer - Gerenciador de pacotes do PHP</h2>
+<p>A partir daqui iremos instalar os requisitos para  o <strong>Laravel</strong>, o composer é um deles.</p>
+<p>Apenas rode os comandos abaixo para instalar o composer, tirado diretamento do <a href="https://getcomposer.org">site oficial</a>.</p>
+<div class="highlight"><pre><span></span><span class="nv">php</span> <span class="o">-</span><span class="nv">r</span> <span class="s2">&quot;</span><span class="s">copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);</span><span class="s2">&quot;</span>
+<span class="nv">php</span> <span class="o">-</span><span class="nv">r</span> <span class="s2">&quot;</span><span class="s">if (hash_file(&#39;sha384&#39;, &#39;composer-setup.php&#39;) === &#39;a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;</span><span class="s2">&quot;</span>
+<span class="nv">php</span> <span class="nv">composer</span><span class="o">-</span><span class="nv">setup</span>.<span class="nv">php</span>
+<span class="nv">php</span> <span class="o">-</span><span class="nv">r</span> <span class="s2">&quot;</span><span class="s">unlink(&#39;composer-setup.php&#39;);</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<p>Agora precisamos mover o arquivo <code>composer.phar</code> para a pasta de binários do sistema(irei renomear para apenas 'composer').</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mv</span> <span class="n">composer</span><span class="p">.</span><span class="n">phar</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">composer</span>
+</pre></div>
+
+
+<p>Digite 'composer --version' e o output será parecido com esse:</p>
+<div class="highlight"><pre><span></span><span class="n">Composer</span> <span class="k">version</span> <span class="mi">1</span><span class="p">.</span><span class="mi">9</span><span class="p">.</span><span class="mi">0</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span> <span class="mi">20</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">32</span>
+</pre></div>
+
+
+<h2>4 - Node-js e NPM</h2>
+<p>Instalei o <code>node</code> e o <code>npm</code> pelo pelo próprio repositório do Ubuntu, mas você também pode instalar uma versão mais recente pelo <a href="https://nodejs.org/en/">site oficial</a>.</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">nodejs</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">dev</span> <span class="n">node</span><span class="o">-</span><span class="n">gyp</span> <span class="n">libssl1</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="n">dev</span> <span class="n">npm</span>
+</pre></div>
+
+
+<p>Para confirmar:</p>
+<div class="highlight"><pre><span></span><span class="n">nodejs</span> <span class="o">-</span><span class="n">v</span>
+<span class="n">npm</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+
+
+<p>Se apareceu o número da versão, está tudo certo.</p>
+<h2>5 - Laravel</h2>
+<p>Utilize o comando abaixo para o composer instalar o Laravel e adicionar no $PATH</p>
+<div class="highlight"><pre><span></span><span class="n">composer</span> <span class="k">global</span> <span class="n">require</span> <span class="n">laravel</span><span class="o">/</span><span class="n">installer</span>
+<span class="n">echo</span> <span class="s1">&#39;export PATH=&quot;PATH:/$HOME/.config/composer/vendor/bin/&quot;&#39;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">-</span><span class="n">a</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
+</pre></div>
+
+
+<p>Com isso finaliza a instalação do meu ambiente de desenvolvimento com PHP no trabalho. Há alguns programas adicionais utilizados por mim, acho bom apenas citar, que são:</p>
+<ul>
+<li><code>Visual Studio Code</code> - meu editor de código favorito no momento</li>
+<li><code>Postman</code> - para testar as APIs feitas com Lumen</li>
+<li><code>DBeaver</code> - uma ferramenta de banco de dados que estou utilizando</li>
+<li><code>Lampp</code> - as vezes utilizo com o projeto em WordPress</li>
+</ul>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="https://mmazoni.github.io/tag/php.html">php</a>, <a href="https://mmazoni.github.io/tag/coding.html">coding</a>, <a href="https://mmazoni.github.io/tag/environment.html">environment</a></p>
+        </div>
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/matheus-mazoni/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/mazoni_matheus">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/MMazoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/mazoni.matheus">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:mmazoni.andrade@gmail.com">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Matheus Mazoni
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://mmazoni.github.io/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://mmazoni.github.io/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="https://mmazoni.github.io/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-140012978-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</body>
+
+</html>
