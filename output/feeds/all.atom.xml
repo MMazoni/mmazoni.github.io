@@ -1,5 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/all.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2019-10-15T22:59:00-03:00</updated><entry><title>Você conhece o Anki?</title><link href="https://mmazoni.github.io/anki.html" rel="alternate"></link><published>2019-10-15T22:59:00-03:00</published><updated>2019-10-15T22:59:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-10-15:anki.html</id><summary type="html">&lt;h2&gt;Estudos por Flashcards&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/all.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2019-12-02T21:12:00-02:00</updated><entry><title>Ambiente de desenvolvimento em PHP</title><link href="https://mmazoni.github.io/php-environment.html" rel="alternate"></link><published>2019-12-02T21:12:00-02:00</published><updated>2019-12-02T21:12:00-02:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-12-02:php-environment.html</id><summary type="html">&lt;h2&gt;Ambiente Desenvolvimento PHP&lt;/h2&gt;
+&lt;p&gt;Antes eu comecei utilizando Windows com o Xampp(Apache, MySQL e PHP), no entanto sou muito fã do Linux, pedi para meu gerente se eu poderia instalar uma distribuição de meu interesse. Ele também gosta de Linux, então ele autorizou sem problemas. Depois da migração, eu vi que não precisava mais do Xampp(uso bem pouco hoje em dia), ainda mais que o PHP e o Laravel conseguem subir um servidor para testar o código.&lt;/p&gt;
+&lt;p&gt;Agora vou mostrar o ambiente de desenvolvimento que preparei no Ubuntu 19.10 no trabalho.&lt;/p&gt;
+&lt;h3&gt;1 - Oracle Client (oci8)&lt;/h3&gt;
+&lt;p&gt;Faça o download de acordo com sua máquina do &lt;a href="https://www.oracle.com/database/technologies/instant-client/linux-x86-64-downloads.html"&gt;Oracle Instant Client&lt;/a&gt; dos arquivos que tiver &lt;code&gt;basic&lt;/code&gt; e &lt;code&gt;sdk&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Arquivos de exemplo do linux x64: &lt;em&gt;instantclient-basic-linux.x64-19.3.0.0.0dbru.zip&lt;/em&gt; e &lt;em&gt;instantclient-sdk-linux.x64-19.3.0.0.0dbru.zip&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Na pasta &lt;em&gt;Downloads&lt;/em&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mkdir oracle
+mv instantclient-basic-linux.x64-19.3.0.0.0dbru.zip oracle/
+mv instantclient-sdk-linux.x64-19.3.0.0.0dbru.zip oracle/
+&lt;span class="nb"&gt;cd&lt;/span&gt; oracle
+unzip instantclient-basic-linux.x64-19.3.0.0.0dbru.zip
+unzip instantclient-sdk-linux.x64-19.3.0.0.0dbru.zip
+&lt;span class="nb"&gt;cd&lt;/span&gt; ..
+sudo mv oracle /opt/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Adicione a pasta ao &lt;strong&gt;ldconfig&lt;/strong&gt; e use o comando.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;LD_LIBRARY_PATH&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;oracle&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;instantclient_19_3&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;c&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;echo /opt/oracle/instantclient_19_3 &amp;gt; /etc/ld.so.conf.d/oracle-instantclient.conf&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;ldconfig&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Utilizamos o banco Oracle e precisamos da extensão &lt;code&gt;oci8&lt;/code&gt; no PHP, iremos ativar na compilação dele.&lt;/p&gt;
+&lt;h3&gt;2 - PHP (7.3.12)&lt;/h3&gt;
+&lt;p&gt;Há duas formas mais comuns de instalar o PHP no Linux, usar os comandos no terminal e usar a versão do repositório ou compilar o código fonte. Eu prefiro compilar pois eu consigo ter controle de todas as extensões que estou instalando.&lt;/p&gt;
+&lt;p&gt;Instale as dependências&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;autoconf&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;bison&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;essential&lt;/span&gt; &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="n"&gt;flex&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;
+    &lt;span class="n"&gt;libtool&lt;/span&gt; &lt;span class="n"&gt;libssl&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libcurl4&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;openssl&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libxml2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libonig&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;
+    &lt;span class="n"&gt;libreadline&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libsqlite3&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;libzip&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;nginx&lt;/span&gt; &lt;span class="n"&gt;openssl&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;
+    &lt;span class="n"&gt;pkg&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;re2c&lt;/span&gt; &lt;span class="n"&gt;sqlite3&lt;/span&gt; &lt;span class="n"&gt;zlib1g&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="https://www.php.net/downloads.php"&gt;Baixe o PHP&lt;/a&gt;. Lembrando que utilizei a versão 7.3. Descompacte e entre no diretório pelo terminal.&lt;/p&gt;
+&lt;p&gt;Crie um diretório para separar de outras versões do PHP e compile&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt;  &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;php7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="c1"&gt;--prefix=$HOME/php7.3 \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-mysqlnd \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-pdo-mysql \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-pdo-mysql=mysqlnd \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-mysqli=mysqlnd \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-bcmath \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-fpm \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-fpm-user=www-data \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-fpm-group=www-data \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-mbstring \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-phpdbg \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-shmop \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-sockets \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-sysvmsg \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-sysvsem \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-sysvshm \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-zip \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-libzip=/usr/lib/x86_64-linux-gnu \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-zlib \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-curl \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-pear \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-openssl \&lt;/span&gt;
+    &lt;span class="c1"&gt;--enable-pcntl \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-readline \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-pdo-sqlite \&lt;/span&gt;
+    &lt;span class="c1"&gt;--with-oci8=instantclient,/opt/oracle/instantclient_19_3&lt;/span&gt;
+
+&lt;span class="n"&gt;make&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;Agora, algumas modificações para tudo dar certo.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;cp&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ini&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;development&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;php7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ini&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;php7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="n"&gt;mv&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;span class="n"&gt;mv&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fpm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Adicione a caminho ~/php7.3/bin &lt;a href="https://gist.github.com/nex3/c395b2f8fd4b02068be37c961301caa7"&gt;para a variável $PATH&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Para testar se o PHP está funcionando.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;php&lt;/span&gt; &lt;span class="c1"&gt;--version&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;PHP&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cli&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;built&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;Dec&lt;/span&gt; &lt;span class="mi"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2019&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;55&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;NTS&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Copyright&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1997&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt; &lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;PHP&lt;/span&gt; &lt;span class="k"&gt;Group&lt;/span&gt;
+&lt;span class="n"&gt;Zend&lt;/span&gt; &lt;span class="n"&gt;Engine&lt;/span&gt; &lt;span class="n"&gt;v3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Copyright&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1998&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt; &lt;span class="n"&gt;Zend&lt;/span&gt; &lt;span class="n"&gt;Technologies&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;3 - Composer - Gerenciador de pacotes do PHP&lt;/h2&gt;
+&lt;p&gt;A partir daqui iremos instalar os requisitos para  o &lt;strong&gt;Laravel&lt;/strong&gt;, o composer é um deles.&lt;/p&gt;
+&lt;p&gt;Apenas rode os comandos abaixo para instalar o composer, tirado diretamento do &lt;a href="https://getcomposer.org"&gt;site oficial&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;php&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;r&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="s"&gt;copy(&amp;#39;https://getcomposer.org/installer&amp;#39;, &amp;#39;composer-setup.php&amp;#39;);&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;php&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;r&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="s"&gt;if (hash_file(&amp;#39;sha384&amp;#39;, &amp;#39;composer-setup.php&amp;#39;) === &amp;#39;a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1&amp;#39;) { echo &amp;#39;Installer verified&amp;#39;; } else { echo &amp;#39;Installer corrupt&amp;#39;; unlink(&amp;#39;composer-setup.php&amp;#39;); } echo PHP_EOL;&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;php&lt;/span&gt; &lt;span class="nv"&gt;composer&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;setup&lt;/span&gt;.&lt;span class="nv"&gt;php&lt;/span&gt;
+&lt;span class="nv"&gt;php&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;r&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="s"&gt;unlink(&amp;#39;composer-setup.php&amp;#39;);&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora precisamos mover o arquivo &lt;code&gt;composer.phar&lt;/code&gt; para a pasta de binários do sistema(irei renomear para apenas 'composer').&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;mv&lt;/span&gt; &lt;span class="n"&gt;composer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;phar&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;composer&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Digite 'composer --version' e o output será parecido com esse:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Composer&lt;/span&gt; &lt;span class="k"&gt;version&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;08&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;55&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;32&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;4 - Node-js e NPM&lt;/h2&gt;
+&lt;p&gt;Instalei o &lt;code&gt;node&lt;/code&gt; e o &lt;code&gt;npm&lt;/code&gt; pelo pelo próprio repositório do Ubuntu, mas você também pode instalar uma versão mais recente pelo &lt;a href="https://nodejs.org/en/"&gt;site oficial&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;nodejs&lt;/span&gt; &lt;span class="n"&gt;nodejs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;gyp&lt;/span&gt; &lt;span class="n"&gt;libssl1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;npm&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Para confirmar:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;nodejs&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;
+&lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Se apareceu o número da versão, está tudo certo.&lt;/p&gt;
+&lt;h2&gt;5 - Laravel&lt;/h2&gt;
+&lt;p&gt;Utilize o comando abaixo para o composer instalar o Laravel e adicionar no $PATH&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;composer&lt;/span&gt; &lt;span class="k"&gt;global&lt;/span&gt; &lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="n"&gt;laravel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;installer&lt;/span&gt;
+&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;export PATH=&amp;quot;PATH:/$HOME/.config/composer/vendor/bin/&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;tee&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bashrc&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Com isso finaliza a instalação do meu ambiente de desenvolvimento com PHP no trabalho. Há alguns programas adicionais utilizados por mim, acho bom apenas citar, que são:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Visual Studio Code&lt;/code&gt; - meu editor de código favorito no momento&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Postman&lt;/code&gt; - para testar as APIs feitas com Lumen&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DBeaver&lt;/code&gt; - uma ferramenta de banco de dados que estou utilizando&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Lampp&lt;/code&gt; - as vezes utilizo com o projeto em WordPress&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="php"></category><category term="coding"></category><category term="environment"></category></entry><entry><title>Você conhece o Anki?</title><link href="https://mmazoni.github.io/anki.html" rel="alternate"></link><published>2019-10-15T22:59:00-03:00</published><updated>2019-10-15T22:59:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-10-15:anki.html</id><summary type="html">&lt;h2&gt;Estudos por Flashcards&lt;/h2&gt;
 &lt;p&gt;O &lt;a href="https://apps.ankiweb.net/"&gt;Anki&lt;/a&gt; é um programa open-source desenvolvido em python que utiliza uma técnica chamada &lt;code&gt;flashcard&lt;/code&gt;, conheci na época do meu estudo para o vestibular. O flashcard é um cartão com dois lados, a frente com alguma informação(pergunta) e o verso estaria com a resposta(exatamente aquilo que você quer memorizar). É uma técnica fantástica para memorizar conceitos, fatos e informações pontuais.&lt;/p&gt;
 &lt;p&gt;Existe outros softwares de flashcards, mas apenas conheço o Anki, como sempre atendeu minhas expectativas nunca precisei procurar por outro. Ele é multiplataforma, tem para Windows, MacOS, Linux, Android, IOS e Web.&lt;/p&gt;
 &lt;p&gt;Eu prefiro utilizar o &lt;a href="https://ankiweb.net/"&gt;AnkiWeb&lt;/a&gt;, pois não precisa instalar nada. Consigo sincronizar meus &lt;em&gt;decks&lt;/em&gt; pela minha conta em qualquer lugar, apenas acessando o site e logando.&lt;/p&gt;
