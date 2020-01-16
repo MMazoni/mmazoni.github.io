@@ -143,14 +143,46 @@ Se apareceu o número da versão, está tudo certo.
 
 ## 5 - Laravel
 
-Utilize o comando abaixo para o composer instalar o Laravel e adicionar no $PATH
+Utilize o comando abaixo para o composer instalar o Laravel e depois adicionar no $PATH
 
 	composer global require laravel/installer
 	echo 'export PATH="PATH:/$HOME/.config/composer/vendor/bin/"' | sudo tee -a ~/.bashrc
+
+## 6 - Oracle SQL Developer
+
+Um dos pré-requisitos é a instalação do Java 8 para cima, recomendo que instale o [Java da Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), pois o OpenJDK não é o suficiente, sendo necessário a instalação de mais bibliotecas por fora para o SQL Developer funcionar corretamente.
+
+Para instalá-lo, apenas baixe o jdk-8 no formato ´tar.gz´ e extraia para a pasta /opt/jdk.
+	
+	sudo mkdir  -p /opt/jdk
+	sudo cp -rf /$HOME/Downloads/jdk-8u231-linux-x64.tar.gz /opt/jdk/
+	cd /opt/jdk/
+	sudo tar -zxf jdk-8u231-linux-x64.tar.gz
+
+Com o java instalado, agora vamos baixar o [SQL Developer](https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html). Utilizei o "Other Platforms". 
+
+Extraia o zip baixado e siga os passos abaixo para a instalação:
+
+	sudo unzip /$HOME/Downloads/sqldeveloper-*-no-jre.zip -d /opt/
+	sudo chmod +x /opt/sqldeveloper/sqldeveloper.sh
+	sudo ln -s /opt/sqldeveloper/sqldeveloper.sh /usr/local/bin/sqldeveloper
+
+Edite o script /opt/sqldeveloper/sqldeveloper.sh por:
+	
+	#!/bin/bash
+	unset -v GNOME_DESKTOP_SESSION_ID
+	cd /opt/sqldeveloper/sqldeveloper/bin
+	./sqldeveloper "$@"
+
+Quando você executar o SQL Developer, vai ser necessário colocar o caminho da pasta do Java, irei colocar o meu como exemplo:
+
+	sqldeveloper
+	
+	/opt/jdk/jdk1.8.0_231/
+	
 
 Com isso finaliza a instalação do meu ambiente de desenvolvimento com PHP no trabalho. Há alguns programas adicionais utilizados por mim, acho bom apenas citar, que são:
 
 + `Visual Studio Code` - meu editor de código favorito no momento
 + `Postman` - para testar as APIs feitas com Lumen
-+ `DBeaver` - uma ferramenta de banco de dados que estou utilizando
-+ `Lampp` - as vezes utilizo com o projeto em WordPress
++ `Filezilla` - um cliente open-source para gerenciar transferência FTP

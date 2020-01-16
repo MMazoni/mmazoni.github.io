@@ -127,3 +127,5 @@ dmypy.json
 .idea/
 
 Makefile.sublime-workspace
+
+venv/
