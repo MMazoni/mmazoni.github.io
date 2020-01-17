@@ -7,7 +7,7 @@ Slug: my-crostini-setup
 Authors: Matheus Mazoni
 Summary: Instalação inicial do Linux container: "Crostini"
 
-## Cromebook setup
+<!-- ## Cromebook setup -->
 
 Primeiramente vamos fazer o update e upgrade do sistema. Lembrando que o Crostini é um container Linux baseado em Debian Stretch.
 

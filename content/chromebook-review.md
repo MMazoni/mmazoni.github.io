@@ -6,7 +6,7 @@ Slug: review-cromebook
 Authors: Matheus Mazoni
 Summary: Minhas impressões do meu novo Chromebook
 
-## Minhas impressões do meu novo Chromebook
+<!-- ## Minhas impressões do meu novo Chromebook -->
 
 Infelizmente ou felizmente, o notebook que meu  irmão tinha me dado parou de funcionar. Era um *semp toshiba* que não lembro o modelo, mas tinha: 4gb de ram; intel core i3 com 2,5ghz de clock; SSD de 120gb de armazenamento, placa de vídeo Intel HD graphics. Para minha utilização ele estava servindo muito bem, programação, estudar, navegar na internet, assistir YouTube e Netflix. Eu não jogo mais e não faço nada que precise de um computador potente.
 

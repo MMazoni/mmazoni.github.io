@@ -5,7 +5,7 @@ Slug: anki
 Authors: Matheus Mazoni 
 Summary: Usando Anki: estudos por flashcards
 
-## Estudos por Flashcards
+<!-- ## Estudos por Flashcards -->
 
 O [Anki](https://apps.ankiweb.net/) é um programa open-source desenvolvido em python que utiliza uma técnica chamada `flashcard`, conheci na época do meu estudo para o vestibular. O flashcard é um cartão com dois lados, a frente com alguma informação(pergunta) e o verso estaria com a resposta(exatamente aquilo que você quer memorizar). É uma técnica fantástica para memorizar conceitos, fatos e informações pontuais.
 

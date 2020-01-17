@@ -7,7 +7,7 @@ author: Matheus Mazoni
 Summary: Expectativas da minha entrada no mercado de TI
 
 
-## Enfim, um estágio
+<!-- ## Enfim, um estágio -->
   
 Há algumas semanas troquei de emprego e finalmente entrei para a área de tecnologia no âmbito profissional, como sempre quis desde o meu ingresso no curso de Análise e Desenvolvimento de Sistemas. Agora estou estagiando no setor de Sistemas e faço parte da equipe que cuida da parte web da empresa. 
 

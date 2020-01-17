@@ -6,7 +6,7 @@ Slug: git-github
 Authors: Matheus Mazoni
 Summary: Alguns comandos básicos para começar a trabalhar com git e participar de projetos open-source.
 
-## Comandos Básicos de Git/Github
+<!-- ## Comandos Básicos de Git/Github -->
 
 
 O primeiro comando para iniciar o repositório local:

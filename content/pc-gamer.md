@@ -6,7 +6,7 @@ Slug: pc-gamer
 Authors: Matheus Mazoni
 Summary: Comprando partes do meu PC Gamer em lugares diferentes
 
-## Comprando as peças pela internet
+<!-- ## Comprando as peças pela internet -->
 
 
 Pesquisei muito antes de escolher os sites e marcas para comprar na internet, não sou nenhum expert em hardware, mas tinha uma ideia exatamente o que queria: um computador com custo-benefício na faixa dos 1.400~1.600 e que eu possa fazer upgrade no futuro.

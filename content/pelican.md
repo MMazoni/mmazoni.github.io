@@ -5,7 +5,7 @@ Slug: pelican-blog
 Authors: Matheus Mazoni
 Summary: Fazendo o setup do Pelican para gerar páginas estáticas de um blog
 
-## Como criei esse blog com Pelican
+<!-- ## Como criei esse blog com Pelican -->
 
 Eu precisava de uma plataforma fácil e simples para fazer um blog, enquanto não consigo desenvolver um blog do zero, para detalhar as minhas experiências como estudante de tecnologia. Encontrei o __Pelican__ que é um gerador de sites estáticos, com isso não preciso escrever _HTML_ /_CSS_, apenas fazer algumas alterações.
 

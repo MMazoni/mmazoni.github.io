@@ -5,7 +5,7 @@ Slug: php-environment
 Authors: Matheus Mazoni 
 Summary: Ambiente de desenvolvimento em PHP no trabalho
 
-## Ambiente Desenvolvimento PHP
+<!-- ## Ambiente Desenvolvimento PHP -->
 
 Antes eu comecei utilizando Windows com o Xampp(Apache, MySQL e PHP), no entanto sou muito fã do Linux, pedi para meu gerente se eu poderia instalar uma distribuição de meu interesse. Ele também gosta de Linux, então ele autorizou sem problemas. Depois da migração, eu vi que não precisava mais do Xampp(uso bem pouco hoje em dia), ainda mais que o PHP e o Laravel conseguem subir um servidor para testar o código.
 
