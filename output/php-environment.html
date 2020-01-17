@@ -114,7 +114,8 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <h2>Ambiente Desenvolvimento PHP</h2>
+        <!-- ## Ambiente Desenvolvimento PHP -->
+
 <p>Antes eu comecei utilizando Windows com o Xampp(Apache, MySQL e PHP), no entanto sou muito fã do Linux, pedi para meu gerente se eu poderia instalar uma distribuição de meu interesse. Ele também gosta de Linux, então ele autorizou sem problemas. Depois da migração, eu vi que não precisava mais do Xampp(uso bem pouco hoje em dia), ainda mais que o PHP e o Laravel conseguem subir um servidor para testar o código.</p>
 <p>Agora vou mostrar o ambiente de desenvolvimento que preparei no Ubuntu 19.10 no trabalho.</p>
 <h3>1 - Oracle Client (oci8)</h3>
@@ -245,9 +246,45 @@ sudo mv oracle /opt/
 
 <p>Se apareceu o número da versão, está tudo certo.</p>
 <h2>5 - Laravel</h2>
-<p>Utilize o comando abaixo para o composer instalar o Laravel e adicionar no $PATH</p>
+<p>Utilize o comando abaixo para o composer instalar o Laravel e depois adicionar no $PATH</p>
 <div class="highlight"><pre><span></span><span class="n">composer</span> <span class="k">global</span> <span class="n">require</span> <span class="n">laravel</span><span class="o">/</span><span class="n">installer</span>
 <span class="n">echo</span> <span class="s1">&#39;export PATH=&quot;PATH:/$HOME/.config/composer/vendor/bin/&quot;&#39;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">-</span><span class="n">a</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
+</pre></div>
+
+
+<h2>6 - Oracle SQL Developer</h2>
+<p>Um dos pré-requisitos é a instalação do Java 8 para cima, recomendo que instale o <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java da Oracle</a>, pois o OpenJDK não é o suficiente, sendo necessário a instalação de mais bibliotecas por fora para o SQL Developer funcionar corretamente.</p>
+<p>Para instalá-lo, apenas baixe o jdk-8 no formato ´tar.gz´ e extraia para a pasta /opt/jdk.</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mkdir</span>  <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">jdk</span>
+<span class="n">sudo</span> <span class="n">cp</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="n">Downloads</span><span class="o">/</span><span class="n">jdk</span><span class="o">-</span><span class="mi">8</span><span class="n">u231</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">jdk</span><span class="o">/</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">jdk</span><span class="o">/</span>
+<span class="n">sudo</span> <span class="n">tar</span> <span class="o">-</span><span class="n">zxf</span> <span class="n">jdk</span><span class="o">-</span><span class="mi">8</span><span class="n">u231</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+</pre></div>
+
+
+<p>Com o java instalado, agora vamos baixar o <a href="https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html">SQL Developer</a>. Utilizei o "Other Platforms". </p>
+<p>Extraia o zip baixado e siga os passos abaixo para a instalação:</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">unzip</span> <span class="o">/</span><span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="n">Downloads</span><span class="o">/</span><span class="n">sqldeveloper</span><span class="o">-*-</span><span class="k">no</span><span class="o">-</span><span class="n">jre</span><span class="p">.</span><span class="n">zip</span> <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span>
+<span class="n">sudo</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sqldeveloper</span><span class="o">/</span><span class="n">sqldeveloper</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sqldeveloper</span><span class="o">/</span><span class="n">sqldeveloper</span><span class="p">.</span><span class="n">sh</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">sqldeveloper</span>
+</pre></div>
+
+
+<p>Edite o script /opt/sqldeveloper/sqldeveloper.sh por:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">unset</span> -v GNOME_DESKTOP_SESSION_ID
+<span class="nb">cd</span> /opt/sqldeveloper/sqldeveloper/bin
+./sqldeveloper <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</td></tr></table>
+
+<p>Quando você executar o SQL Developer, vai ser necessário colocar o caminho da pasta do Java, irei colocar o meu como exemplo:</p>
+<div class="highlight"><pre><span></span><span class="n">sqldeveloper</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">jdk</span><span class="o">/</span><span class="n">jdk1</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="n">_231</span><span class="o">/</span>
 </pre></div>
 
 
@@ -255,8 +292,7 @@ sudo mv oracle /opt/
 <ul>
 <li><code>Visual Studio Code</code> - meu editor de código favorito no momento</li>
 <li><code>Postman</code> - para testar as APIs feitas com Lumen</li>
-<li><code>DBeaver</code> - uma ferramenta de banco de dados que estou utilizando</li>
-<li><code>Lampp</code> - as vezes utilizo com o projeto em WordPress</li>
+<li><code>Filezilla</code> - um cliente open-source para gerenciar transferência FTP</li>
 </ul>
     </article>
 
