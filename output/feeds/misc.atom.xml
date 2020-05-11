@@ -1,5 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2020-01-08T13:36:00-02:00</updated><entry><title>O ano de 2019 na minha vida</title><link href="https://mmazoni.github.io/resumo-2019.html" rel="alternate"></link><published>2020-01-08T13:36:00-02:00</published><updated>2020-01-08T13:36:00-02:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2020-01-08:resumo-2019.html</id><summary type="html">&lt;p&gt;Eu não posso negar que ocorreu muita coisa boa em 2019 para mim, foi um ano de mudanças que estava esperando a um tempo. Esse blog é como se fosse um histórico de tudo que ocorreu comigo e sou muito grato por ter começado a escrevê-lo.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2020-05-06T17:55:00-03:00</updated><entry><title>Instalando o SQL Server no Ubuntu 18.04 via Docker</title><link href="https://mmazoni.github.io/docker-sql-server.html" rel="alternate"></link><published>2020-05-06T17:55:00-03:00</published><updated>2020-05-06T17:55:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2020-05-06:docker-sql-server.html</id><summary type="html">&lt;p&gt;A maneira mais fácil que encontrei de usar o SQL Server no Linux, algo necessário para minha aula de banco de dados na faculdade. Vou dividir esse guia em três partes: instalação do Docker, criar a imagem SQL Server(docker)  e configurá-la, usar o DBeaver para gerenciar o banco.&lt;/p&gt;
+&lt;h2&gt;Parte 1 - Docker&lt;/h2&gt;
+&lt;p&gt;Vamos instalar o docker utilizando o repositório, primeiramente precisamos configurá-lo:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
+
+$ sudo apt-get install &lt;span class="se"&gt;\&lt;/span&gt;
+    apt-transport-https &lt;span class="se"&gt;\&lt;/span&gt;
+    ca-certificates &lt;span class="se"&gt;\&lt;/span&gt;
+    curl &lt;span class="se"&gt;\&lt;/span&gt;
+    gnupg-agent &lt;span class="se"&gt;\&lt;/span&gt;
+    software-properties-common
+
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p"&gt;|&lt;/span&gt; sudo apt-key add -
+
+$ sudo add-apt-repository &lt;span class="se"&gt;\&lt;/span&gt;
+   &lt;span class="s2"&gt;&amp;quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \&lt;/span&gt;
+&lt;span class="s2"&gt;   &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; \&lt;/span&gt;
+&lt;span class="s2"&gt;   stable&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora, iremos atualizar o repositório e instalar o docker:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+$ sudo docker run hello-world
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Se instalou e rodou a imagem docker do "Hello World", então está tudo perfeito. &lt;/p&gt;
+&lt;p&gt;Para não precisar sempre utilizar o &lt;code&gt;sudo&lt;/code&gt;, iremos adicionar o docker ao grupo de usuário.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo usermod -aG docker &lt;span class="nv"&gt;$USER&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora é necessário deslogar e logar novamente para ativar as alterações.&lt;/p&gt;
+&lt;p&gt;Caso queira que o docker inicie no boot:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl &lt;span class="nb"&gt;enable&lt;/span&gt; docker
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Para desabilitar:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl disable docker
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Parte 2 - Imagem SQL Server Docker&lt;/h2&gt;
+&lt;p&gt;A partir daqui vou instalar a imagem do SQL Server, não utilizarei o sudo, pois adicionei o docker ao grupo de usuário. Para baixar e executar a imagem, utilize os comandos abaixo:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ docker pull mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+
+$ docker run -e &lt;span class="s2"&gt;&amp;quot;ACCEPT_EULA=Y&amp;quot;&lt;/span&gt; -e &lt;span class="s2"&gt;&amp;quot;SA_PASSWORD=UmaSenhaForte&amp;quot;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+   -p &lt;span class="m"&gt;1433&lt;/span&gt;:1433 --name sql1 &lt;span class="se"&gt;\&lt;/span&gt;
+   -d mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Os parâmetros passados:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-e "ACCEPT_EULA=Y"&lt;/strong&gt; - Aqui é para definir a variável que irá aceitar os termos de licença.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-e "SA_PASSWORD=UmaSenhaForte"&lt;/strong&gt; - Define a varíavel da senha do SA&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-p 1433:1433&lt;/strong&gt; - Mapeia a porta 1433 para o host e o container&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;--name sqli&lt;/strong&gt; - O nome do container&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-d mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04&lt;/strong&gt; - O nome da imagem&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para exibir os containers do docker utilize o comando:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ docker ps -a
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="comando-docker" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/d3b4f8c81aeed408e399af55be521eb1/terminal-docker.png" title="Terminal com comando 'docker ps -a'" /&gt;&lt;/p&gt;
+&lt;p&gt;Como você pode ver na imagem acima, no campo status todo estão como &lt;code&gt;Exited&lt;/code&gt;, pois os containers estão destivados, quando ficarem Up é porque subiu o container. É necessário o comando:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ docker start sql1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Conectando no SQL Server via linha de comando&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Execute o container com o bash&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nv"&gt;docker&lt;/span&gt; &lt;span class="k"&gt;exec&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;it&lt;/span&gt; &lt;span class="nv"&gt;sql1&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="s"&gt;bash&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;Agora dê o comando do SQL Server com os parâmetros da senha&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P &lt;span class="s2"&gt;&amp;quot;&amp;lt;UmaSenhaForte&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Se tudo ocorreu bem, você estará no SQL Server, no prompt de comando. Agora já pode usar os comandos SQL para manipular dados, mas vou mostrar como instalar e se conectar com o DBeaver.&lt;/p&gt;
+&lt;h2&gt;Parte 3 - Conectando no SQL Server via DBeaver&lt;/h2&gt;
+&lt;p&gt;Para instalar, baixe o instalador &lt;code&gt;.deb&lt;/code&gt; no &lt;a href="https://dbeaver.io/download/"&gt;site deles&lt;/a&gt; e clique duplo para instalar.&lt;/p&gt;
+&lt;p&gt;Abra o DBeaver e clique no ícone de criar uma conexão de banco:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="conexao-dbeaver" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/a8cc1a49b8b35887e91858ecb0447f12/database-connection.png" title="Ícone de criar conexão" /&gt;&lt;/p&gt;
+&lt;p&gt;Escolha o SQL Server e clique em &lt;code&gt;Next&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="sql-server" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/8105d0cb761d9af25644eefedf949a14/sql-server.png" title="SQL Server" /&gt;&lt;/p&gt;
+&lt;p&gt;Apenas coloque SA no nome de usuário e a senha do SA e clique em &lt;code&gt;Finish&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="criando-conexao" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/b476c7a2b7d9994432ac70bcc10804b0/conectar-sql.png" title="Criando conexão" /&gt;&lt;/p&gt;
+&lt;p&gt;Após isso ele irá pedir para instalar um plugin para utilizar o SQL Server, que é necessário apenas confirmar que ele já baixa e instala. Depois disso é só começar a manipular os dados com o DBeaver utilizando o SQL Server. Lembrando que quando você desligar ou reiniciar o computador, será necessário subir o container do SQL Server novamente.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="conexoes" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/09f0ac6c7440c078b31a86cb1745c6c7/conexoes.png" title="DBeaver" /&gt;&lt;/p&gt;</summary><category term="sql"></category><category term="docker"></category><category term="ubuntu"></category><category term="server"></category></entry><entry><title>O ano de 2019 na minha vida</title><link href="https://mmazoni.github.io/resumo-2019.html" rel="alternate"></link><published>2020-01-08T13:36:00-02:00</published><updated>2020-01-08T13:36:00-02:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2020-01-08:resumo-2019.html</id><summary type="html">&lt;!-- sadasd --&gt;
+
+&lt;p&gt;Eu não posso negar que ocorreu muita coisa boa em 2019 para mim, foi um ano de mudanças que estava esperando a um tempo. Esse blog é como se fosse um histórico de tudo que ocorreu comigo e sou muito grato por ter começado a escrevê-lo.&lt;/p&gt;
 &lt;h3&gt;Tirei o blog do papel&lt;/h3&gt;
 &lt;p&gt;É algo que era pra ser feito desde quando entrei na faculdade, mas fui procrastinando sempre. Em todo lugar na internet eu via que era bom iniciantes em programação criar seu próprio blog e documentar tudo, que além de ser um aprendizado, pode ser também um portifólio.&lt;/p&gt;
 &lt;p&gt;Eu gosto de escrever, gosto de tecnologia, sempre quis ter um blog, por que não? É uma coisa mais para mim que para os outros, pelo menos agora que não tenho audiência. Coloco uns textos de referências para algo que utilizo bastante e tenho um acesso bem mais rápido do que se fosse na fonte original. Posso também mostrar ao mundo minhas experiências, na minha jornada com o mundo volátil da tecnologia.&lt;/p&gt;

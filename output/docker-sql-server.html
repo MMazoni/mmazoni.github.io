@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>O ano de 2019 na minha vida</title>
+        <title>Instalando o SQL Server no Ubuntu 18.04 via Docker</title>
 
             <link href="https://mmazoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Full Atom Feed" />
             <link href="https://mmazoni.github.io/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Categories Atom Feed" />
@@ -35,34 +35,36 @@
 
 
 
-        <meta name="description" content="Resumo 2019">
+        <meta name="description" content="Tutorial para instalar o Docker, SQL Server e utilizar com o DBeaver">
 
         <meta name="author" content="Matheus Mazoni">
 
-        <meta name="tags" content="web">
-        <meta name="tags" content="2019">
+        <meta name="tags" content="sql">
+        <meta name="tags" content="docker">
+        <meta name="tags" content="ubuntu">
+        <meta name="tags" content="server">
 
 	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="MMazoni Blog">
 
 	<meta property="og:type" content="article">
             <meta property="article:author" content="https://mmazoni.github.io/author/matheus-mazoni.html">
-	<meta property="og:url" content="https://mmazoni.github.io/resumo-2019.html">
-	<meta property="og:title" content="O ano de 2019 na minha vida">
-	<meta property="article:published_time" content="2020-01-08 13:36:00-02:00">
-            <meta property="og:description" content="Resumo 2019">
+	<meta property="og:url" content="https://mmazoni.github.io/docker-sql-server.html">
+	<meta property="og:title" content="Instalando o SQL Server no Ubuntu 18.04 via Docker">
+	<meta property="article:published_time" content="2020-05-06 17:55:00-03:00">
+            <meta property="og:description" content="Tutorial para instalar o Docker, SQL Server e utilizar com o DBeaver">
 
             <meta property="og:image" content="https://mmazoni.github.io/theme/images/post-bg.jpg">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@mazoni_matheus">
-        <meta name="twitter:title" content="O ano de 2019 na minha vida">
+        <meta name="twitter:title" content="Instalando o SQL Server no Ubuntu 18.04 via Docker">
 
             <meta name="twitter:image" content="https://mmazoni.github.io/theme/images/post-bg.jpg">
 
-            <meta name="twitter:description" content="Resumo 2019">
+            <meta name="twitter:description" content="Tutorial para instalar o Docker, SQL Server e utilizar com o DBeaver">
 </head>
 
-<body class="article-resumo-2019">
+<body class="article-docker-sql-server">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -95,10 +97,10 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>O ano de 2019 na minha vida</h1>
+                        <h1>Instalando o SQL Server no Ubuntu 18.04 via Docker</h1>
                         <span class="meta">Posted by
                                 <a href="https://mmazoni.github.io/author/matheus-mazoni.html">Matheus Mazoni</a>
-                             on qua 08 janeiro 2020
+                             on qua 06 maio 2020
                         </span>
                         
                     </div>
@@ -113,41 +115,121 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <!-- sadasd -->
+        <p>A maneira mais fácil que encontrei de usar o SQL Server no Linux, algo necessário para minha aula de banco de dados na faculdade. Vou dividir esse guia em três partes: instalação do Docker, criar a imagem SQL Server(docker)  e configurá-la, usar o DBeaver para gerenciar o banco.</p>
+<h2>Parte 1 - Docker</h2>
+<p>Vamos instalar o docker utilizando o repositório, primeiramente precisamos configurá-lo:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update
 
-<p>Eu não posso negar que ocorreu muita coisa boa em 2019 para mim, foi um ano de mudanças que estava esperando a um tempo. Esse blog é como se fosse um histórico de tudo que ocorreu comigo e sou muito grato por ter começado a escrevê-lo.</p>
-<h3>Tirei o blog do papel</h3>
-<p>É algo que era pra ser feito desde quando entrei na faculdade, mas fui procrastinando sempre. Em todo lugar na internet eu via que era bom iniciantes em programação criar seu próprio blog e documentar tudo, que além de ser um aprendizado, pode ser também um portifólio.</p>
-<p>Eu gosto de escrever, gosto de tecnologia, sempre quis ter um blog, por que não? É uma coisa mais para mim que para os outros, pelo menos agora que não tenho audiência. Coloco uns textos de referências para algo que utilizo bastante e tenho um acesso bem mais rápido do que se fosse na fonte original. Posso também mostrar ao mundo minhas experiências, na minha jornada com o mundo volátil da tecnologia.</p>
-<p>Me sinto muito bem quando escrevo, tenho orgulho do meu blog apesar de ser bem simples. É uma boa linha do tempo que posso ver meu crescimento e diversas mudanças que ocorrem no meu pensamento. Eu recomendo muito a criarem seu blog, é muito difícil ser consistente na hora de escrever, mas como tudo na vida é necessário ter disciplina. </p>
-<h3>Compra do meu chromebook e do meu PC Gamer</h3>
-<p>Meu lado consumista vibra quando compro dispositivos eletrônicos, no entanto esses dois foram mais especiais (apesar de eu ter comprado um celular também). São neles que posso estudar, programar e fazer meus trabalhos de faculdade, realmente eles foram essenciais quando meu notebook antigo parou de funcionar. Comprei primeiro o chromebook depois achei que precisava de mais potência e comprei o computador. Tenho artigos explicando sobre o <a href="https://mmazoni.github.io/review-cromebook.html">chromebook</a> e o <a href="https://mmazoni.github.io/pc-gamer.html">computador</a>.</p>
-<h3>Primeira conferência de tecnologia</h3>
-<p>Outra coisa que eu já queria faz tempo, mas devido minhas condições financeiras e não saber também qual escolher para ir. O meu irmão me disse "Vai ter a conferência de Linux, vamos?", aí eu só aceitei e  agradeci, pois nada melhor que ir com meu irmão que gosta tanto de Linux quanto eu. </p>
-<p>Foi uma experiência muito boa com pós e contras. Vi a palestra do Maddog (um grande expoente do mundo open-source e leva a cultura Linux para todos os lugares do mundo) que foi excelente por sinal. Descobri diversos projetos open-source, mas como foi a primeira vez, não tive a confiança para conversar com as pessoas. Teve palestras que não entendi nada pelo tema ser muito específico ou algo que nunca tinha visto mesmo. Ao todo, eu gostei muito e me vejo indo em muitas conferências de tecnologia no futuro. Agora falta ir em meetups.</p>
-<h3>Confiante para falar "eu sei programar"</h3>
-<p>Era algo que não conseguia dizer em 2018, que foi quando comecei a faculdade e não tinha contato antes com programação. Apesar de seguir tutoriais de blogs, ver vídeos na internet, estudar as matérias da faculdade, eu simplesmente não conseguia criar algo do zero com minha habilidade. Isso era muito frustrante.</p>
-<p>Um dos problemas que constatei era que eu aprendia um pouco de tudo e não tinha foco em apenas uma vertente. Isso mudou no segundo semestre, quando consegui meu estágio. A diferença de você trabalhar programando, todos os dias tendo que resolver problemas é outra coisa. É uma pena eu não ter conseguido um estágio antes.</p>
-<p>Notei que conseguia programar quando tive um trabalho da faculdade que era preciso fazer um programa de autenticação. Meu grupo ia fazer em Node.js, no entanto o programa estava com algumas falhas que não estavamos conseguindo resolver. No entanto, decidir fazer com Laravel (framework do PHP), pois sabia que era extremamente simples e rápido. No final consegui fazer em 2 dias, apresentamos e ainda tiramos uma nota boa.</p>
-<h3>Consegui meu sonhado <a href="https://mmazoni.github.io/first-internship.html">estágio de tecnologia</a></h3>
-<p>Esse com certeza foi o divisor de águas de 2019 para mim, porque depois disso tudo na minha vida melhorou. Estava trabalhando no comércio, o que me deu condições de comprar minhas coisas, mas não era o ideal para mim, eu só ia trabalhar e depois ia pra faculdade (a realidade de muitos). Ainda por cima, não conseguia ir nas aulas de sábados, apenas nas provas, sorte minha que meu chefe me liberava. Era bem cansativo minha rotina, domingo eu só queria descansar, fazendo com que eu não focasse no meus projetos pessoais.</p>
-<p>Tudo mudou, como é um estágio, trabalho menos horas. Consigo estudar no trabalho e simplesmente estudo trabalhando. Vejo que é isso mesmo que quero pra minha vida, ser um programador. Vou para o trabalho de bicicleta e chego em 20 minutos. Tenho mais tempo para diversão, com isso equilibro minha vida de um forma melhor. Sou muito mais feliz e saudável hoje.</p>
-<h3>Entrando de cabeça no desenvolvimento web</h3>
-<p>Eu estar gostando de trabalhar com web é graças ao meu trabalho. No começo eu tinha preconceito de aprender front-end, mas eu vi que eu teria que mexer com design apenas na superfície e que no fundo tem muita programação. Não preciso ser "o design", apenas saber usar as ferramentas para traduzir o que o design quer nas telas da web. Acho meio simplista isso, mas pelo menos é o que penso atualmente com o "tiquinho" de experiência que tive.</p>
-<p>Agora já tenho um caminho mais certo do que quero seguir na minha carreira, nada que não possa mudar no futuro, mas é algo que já ajuda a não perder o foco. Eu aprendi tudo esse ano: HTML, CSS, Javascript, PHP e estou gostando muito. Há muitas pessoas que criticam o PHP, mas aprendi a gostar bastante dessa linguagem tanto quanto Python. Ela está sofrendo muitas modernizações interessantes e acredito que vale a pena eu continuar aprendendo ela, ainda mais focando ser um Full-Stack.</p>
-<h3>O que esperar de 2020</h3>
-<p>Se for um pouco do que foi ano passado já valerá a pena. Lógico que não consegui fazer tudo que estava planejado, porém fiz coisas que não esperava. O que vou colocar aqui serve de motivação para mim buscar incessantemente nesse ano, sempre com inteligência e paciência:</p>
+$ sudo apt-get install <span class="se">\</span>
+    apt-transport-https <span class="se">\</span>
+    ca-certificates <span class="se">\</span>
+    curl <span class="se">\</span>
+    gnupg-agent <span class="se">\</span>
+    software-properties-common
+
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo apt-key add -
+
+$ sudo add-apt-repository <span class="se">\</span>
+   <span class="s2">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">   </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \</span>
+<span class="s2">   stable&quot;</span>
+</pre></div>
+
+
+<p>Agora, iremos atualizar o repositório e instalar o docker:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+$ sudo docker run hello-world
+</pre></div>
+
+
+<p>Se instalou e rodou a imagem docker do "Hello World", então está tudo perfeito. </p>
+<p>Para não precisar sempre utilizar o <code>sudo</code>, iremos adicionar o docker ao grupo de usuário.</p>
+<div class="highlight"><pre><span></span>$ sudo usermod -aG docker <span class="nv">$USER</span>
+</pre></div>
+
+
+<p>Agora é necessário deslogar e logar novamente para ativar as alterações.</p>
+<p>Caso queira que o docker inicie no boot:</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl <span class="nb">enable</span> docker
+</pre></div>
+
+
+<p>Para desabilitar:</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl disable docker
+</pre></div>
+
+
+<h2>Parte 2 - Imagem SQL Server Docker</h2>
+<p>A partir daqui vou instalar a imagem do SQL Server, não utilizarei o sudo, pois adicionei o docker ao grupo de usuário. Para baixar e executar a imagem, utilize os comandos abaixo:</p>
+<div class="highlight"><pre><span></span>$ docker pull mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+
+$ docker run -e <span class="s2">&quot;ACCEPT_EULA=Y&quot;</span> -e <span class="s2">&quot;SA_PASSWORD=UmaSenhaForte&quot;</span> <span class="se">\</span>
+   -p <span class="m">1433</span>:1433 --name sql1 <span class="se">\</span>
+   -d mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+</pre></div>
+
+
+<p>Os parâmetros passados:</p>
 <ul>
-<li>criar pelo menos 2 portifólios</li>
-<li>ir em alguma conferência de tecnologia</li>
-<li>participar de um meetup</li>
-<li>conseguir um certificado LPI Linux</li>
-<li>ser um usuário mais ativo do Linkedin</li>
+<li>
+<p><strong>-e "ACCEPT_EULA=Y"</strong> - Aqui é para definir a variável que irá aceitar os termos de licença.</p>
+</li>
+<li>
+<p><strong>-e "SA_PASSWORD=UmaSenhaForte"</strong> - Define a varíavel da senha do SA</p>
+</li>
+<li>
+<p><strong>-p 1433:1433</strong> - Mapeia a porta 1433 para o host e o container</p>
+</li>
+<li>
+<p><strong>--name sqli</strong> - O nome do container</p>
+</li>
+<li>
+<p><strong>-d mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04</strong> - O nome da imagem</p>
+</li>
 </ul>
+<p>Para exibir os containers do docker utilize o comando:</p>
+<div class="highlight"><pre><span></span>$ docker ps -a
+</pre></div>
+
+
+<p><img alt="comando-docker" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/d3b4f8c81aeed408e399af55be521eb1/terminal-docker.png" title="Terminal com comando 'docker ps -a'" /></p>
+<p>Como você pode ver na imagem acima, no campo status todo estão como <code>Exited</code>, pois os containers estão destivados, quando ficarem Up é porque subiu o container. É necessário o comando:</p>
+<div class="highlight"><pre><span></span>$ docker start sql1
+</pre></div>
+
+
+<h3>Conectando no SQL Server via linha de comando</h3>
+<ol>
+<li>Execute o container com o bash</li>
+</ol>
+<div class="highlight"><pre><span></span>$ <span class="nv">docker</span> <span class="k">exec</span> <span class="o">-</span><span class="nv">it</span> <span class="nv">sql1</span> <span class="s2">&quot;</span><span class="s">bash</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<ol>
+<li>Agora dê o comando do SQL Server com os parâmetros da senha</li>
+</ol>
+<div class="highlight"><pre><span></span>$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P <span class="s2">&quot;&lt;UmaSenhaForte&gt;&quot;</span>
+</pre></div>
+
+
+<p>Se tudo ocorreu bem, você estará no SQL Server, no prompt de comando. Agora já pode usar os comandos SQL para manipular dados, mas vou mostrar como instalar e se conectar com o DBeaver.</p>
+<h2>Parte 3 - Conectando no SQL Server via DBeaver</h2>
+<p>Para instalar, baixe o instalador <code>.deb</code> no <a href="https://dbeaver.io/download/">site deles</a> e clique duplo para instalar.</p>
+<p>Abra o DBeaver e clique no ícone de criar uma conexão de banco:</p>
+<p><img alt="conexao-dbeaver" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/a8cc1a49b8b35887e91858ecb0447f12/database-connection.png" title="Ícone de criar conexão" /></p>
+<p>Escolha o SQL Server e clique em <code>Next</code>:</p>
+<p><img alt="sql-server" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/8105d0cb761d9af25644eefedf949a14/sql-server.png" title="SQL Server" /></p>
+<p>Apenas coloque SA no nome de usuário e a senha do SA e clique em <code>Finish</code>:</p>
+<p><img alt="criando-conexao" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/b476c7a2b7d9994432ac70bcc10804b0/conectar-sql.png" title="Criando conexão" /></p>
+<p>Após isso ele irá pedir para instalar um plugin para utilizar o SQL Server, que é necessário apenas confirmar que ele já baixa e instala. Depois disso é só começar a manipular os dados com o DBeaver utilizando o SQL Server. Lembrando que quando você desligar ou reiniciar o computador, será necessário subir o container do SQL Server novamente.</p>
+<p><img alt="conexoes" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/09f0ac6c7440c078b31a86cb1745c6c7/conexoes.png" title="DBeaver" /></p>
     </article>
 
         <div class="tags">
-            <p>tags: <a href="https://mmazoni.github.io/tag/web.html">web</a>, <a href="https://mmazoni.github.io/tag/2019.html">2019</a></p>
+            <p>tags: <a href="https://mmazoni.github.io/tag/sql.html">sql</a>, <a href="https://mmazoni.github.io/tag/docker.html">docker</a>, <a href="https://mmazoni.github.io/tag/ubuntu.html">ubuntu</a>, <a href="https://mmazoni.github.io/tag/server.html">server</a></p>
         </div>
 
     <hr>
