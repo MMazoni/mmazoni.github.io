@@ -11,9 +11,9 @@ Summary: Comprando partes do meu PC Gamer em lugares diferentes
 
 Pesquisei muito antes de escolher os sites e marcas para comprar na internet, não sou nenhum expert em hardware, mas tinha uma ideia exatamente o que queria: um computador com custo-benefício na faixa dos 1.400~1.600 e que eu possa fazer upgrade no futuro.
 
-Apesar do título ser sobre PC gamer, meu foco principal não é jogar nem programar jogos - por isso não comprei placa de vídeo -, no entanto um PC potente de baixo custo para eu ter alternativas de programar coisas que depende de uma máquina mais robusta(que rode Android Studio por exemplo). 
+Apesar do título ser sobre PC gamer, meu foco principal não é jogar nem programar jogos - por isso não comprei placa de vídeo -, no entanto um PC potente de baixo custo para eu ter alternativas de programar coisas que depende de uma máquina mais robusta(que rode Android Studio por exemplo).
 
-Estou com saudade também do meu velho amigo Linux, para eu customizar, criar máquinas virtuais, testar novas `distros` e etc. Apesar do Chromebook estar me servindo muito bem, ele não supre 100% minhas necessidades. 
+Estou com saudade também do meu velho amigo Linux, para eu customizar, criar máquinas virtuais, testar novas `distros` e etc. Apesar do Chromebook estar me servindo muito bem, ele não supre 100% minhas necessidades.
 
 Comprei apenas a __memória__ e o __processador__ no `Aliexpress`, o resto comprei aqui no Brasil mesmo pela diferença de preço não ser tão diferente assim. Caso eu comprasse uma placa de vídeo, também seria na China. Alguns derivados comprei, outros não, por já possuir como __tela__, __mouse__, __SSD__.
 
@@ -38,6 +38,6 @@ Obs2: O valor total dos produtos com o frete é R$ 2208,51.
 
 Como não possuo muito conhecimento para montar um computador, as peças que escolhi foram baseadas em um vídeo do canal _MW Informática_, em que ele mostrou que era possível ter um PC bom e não gastar tanto assim. Era pra sair mais caro se eu comprasse uma placa de vídeo, mais memória, um SSD. Porém, tudo o que comprei vai ser o suficiente para mim agora. Quando eu puder ou precisar aumentar a potência do computador, aí penso em melhorá-lo.
 
-#### Atualização 
+#### Atualização
 
 Aconteceu uma coisa interessante quando chegaram as peças, o computador simplesmente não ligava, nem eu e meu irmão(mais experiente no assunto) sabia o que estava acontecendo. Um amigo meu disse que processadores AMD precisavam de uma placa de vídeo, pois não eram como os da Intel que possuem placa On-Board. Então, me vi obrigado a comprar uma placa de vídeo. O que tinha economizado até aqui foi por água a baixo. Eu queria uma placa boa o suficiente para ter uma vida útil razoável, mas não tão boa que custasse um rim.

@@ -10,7 +10,7 @@
         <title>Configurando Crostini para desenvolvimento</title>
 
             <link href="https://mmazoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Full Atom Feed" />
-            <link href="https://mmazoni.github.io/feeds/chromeos.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Categories Atom Feed" />
+            <link href="https://mmazoni.github.io/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Categories Atom Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="https://mmazoni.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,7 +18,7 @@
         <link href="https://mmazoni.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="https://mmazoni.github.io/theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="https://mmazoni.github.io/theme/css/code_blocks/github.css" rel="stylesheet">
 
 
         <!-- Custom Fonts -->
@@ -93,7 +93,7 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://mmazoni.github.io/theme/images/post-bg.jpg')">
+        <header class="intro-header" style="background-color: black">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -120,13 +120,13 @@
         <!-- ## Cromebook setup -->
 
 <p>Primeiramente vamos fazer o update e upgrade do sistema. Lembrando que o Crostini é um container Linux baseado em Debian Stretch.</p>
-<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="k">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">upgrade</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">    sudo apt update &amp;&amp; sudo apt upgrade</span>
+</code></pre></div>
 
 
 <p>Agora, vamos instalar alguns pré-requisitos para compilar o código fonte dessas aplicações no Crostini, como o <em>python</em> e o <em>vim</em>:</p>
-<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">clang</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">libbz2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">wget</span> <span class="n">curl</span> <span class="n">llvm</span> <span class="n">libncurses5</span><span class="o">-</span><span class="n">dev</span> <span class="n">libncursesw5</span><span class="o">-</span><span class="n">dev</span> <span class="n">xz</span><span class="o">-</span><span class="n">utils</span> <span class="n">tk</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo apt install -y clang make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
+</code></pre></div>
 
 
 <h3>Python</h3>
@@ -134,73 +134,73 @@
 <blockquote>
 <p>A versão do python que for instalado pode ser facilmente alterado, mudando nas instruções abaixo o número da versão. Ao invés de ser <code>3.7.2</code> poderia muito bem ser <code>3.6.5</code> (ou qualquer outro), o primeiro comando ficaria: "wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz" e assim por diante.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">python</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">python</span><span class="o">/</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span><span class="o">/</span><span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="n">tgz</span>
-<span class="n">tar</span> <span class="n">xzf</span> <span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="n">tgz</span>
-<span class="n">cd</span> <span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span>
-<span class="p">.</span><span class="o">/</span><span class="n">configure</span> <span class="c1">--enable-optimizations</span>
-<span class="n">make</span>
-<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
-<span class="n">cd</span> <span class="p">..</span>
-<span class="n">sudo</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">Python</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
+tar xzf Python-3.7.2.tgz
+<span class="nb">cd</span> Python-3.7.2
+./configure --enable-optimizations
+make
+sudo make install
+<span class="nb">cd</span> ..
+sudo rm -rf Python-3.7.2
+</code></pre></div>
 
 
 <h3>Vim</h3>
 <p>Como o python, iremos compilar também o vim para habilitar o interpretador.</p>
-<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">remove</span> <span class="n">vim</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="n">vim</span><span class="p">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">vim</span>
-<span class="p">.</span><span class="o">/</span><span class="n">configure</span> <span class="c1">--with-features=huge \</span>
-    <span class="c1">--enable-multibyte \</span>
-    <span class="c1">--enable-python3interp=yes \        --with-python3-config-dir=/usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/ \</span>
-    <span class="c1">--enable-gui=gtk2 \</span>
-    <span class="c1">--enable-cscope \</span>
-    <span class="c1">--prefix=/usr/local \</span>
-    <span class="c1">--with-tlib=ncurses</span>
-<span class="n">make</span> <span class="n">VIMRUNTIMEDIR</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="n">vim80</span>
-<span class="n">sudo</span> <span class="n">make</span> <span class="n">altinstall</span>
-<span class="n">cd</span> <span class="p">..</span>
-<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">vim</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo apt remove vim
+git clone https://github.com/vim/vim.git
+<span class="nb">cd</span> vim
+./configure --with-features<span class="o">=</span>huge <span class="se">\</span>
+    --enable-multibyte <span class="se">\</span>
+    --enable-python3interp<span class="o">=</span>yes <span class="se">\ </span>       --with-python3-config-dir<span class="o">=</span>/usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/ <span class="se">\</span>
+    --enable-gui<span class="o">=</span>gtk2 <span class="se">\</span>
+    --enable-cscope <span class="se">\</span>
+    --prefix<span class="o">=</span>/usr/local <span class="se">\</span>
+    --with-tlib<span class="o">=</span>ncurses
+make <span class="nv">VIMRUNTIMEDIR</span><span class="o">=</span>/usr/share/vim/vim80
+sudo make altinstall
+<span class="nb">cd</span> ..
+rm -rf vim
+</code></pre></div>
 
 
 <p>Existem vários gerenciadores de plugins do vim, o que utilizo é o <em>Vundle</em>.</p>
-<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">gmarik</span><span class="o">/</span><span class="n">Vundle</span><span class="p">.</span><span class="n">vim</span><span class="p">.</span><span class="n">git</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span><span class="o">/</span><span class="n">Vundle</span><span class="p">.</span><span class="n">vim</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim</span>
+</code></pre></div>
 
 
 <p>É preciso criar um arquivo .vimrc para colocar as configurações do vim, se quiser utilizar as <a href="https://github.com/MMazoni/configuration-files/blob/master/.vimrc">minhas configurações</a>.</p>
 <h3>Fish</h3>
 <p>Eu comecei utilizar o <code>fish</code> por causa de uma vídeo aula em que o instrutor usava, o autocomplete dele é muito bom, ele é bem leve e não precisa quase de configuração, diferente do <em>zsh</em> que é o mais famoso e utilizado por programadores, por sua alta customização e variedade de plugins. Eles são uma alternativa ao padrão <em>bash</em>:</p>
-<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">fish</span>
-<span class="n">which</span> <span class="n">fish</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo apt install fish
+which fish
+</code></pre></div>
 
 
 <p>Pegue o que retornou desse comando, normalmente <code>/usr/bin/fish</code>, e coloque no lugar onde esteja o <code>/bin/bash</code> na linha do seu <strong>username</strong> no arquivo <code>passwd</code>.</p>
-<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vim</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">passwd</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo vim /etc/passwd
+</code></pre></div>
 
 
 <h3>Node-js</h3>
 <p>Iremos baixar do site oficial a versão 10.16.0 LTS.</p>
-<div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nodejs</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">v10</span><span class="p">.</span><span class="mi">16</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">v10</span><span class="p">.</span><span class="mi">16</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">xz</span>
-<span class="n">mkdir</span> <span class="p">.</span><span class="n">nodejs</span>
-<span class="n">tar</span> <span class="o">-</span><span class="n">xJvf</span> <span class="n">node</span><span class="o">-</span><span class="n">v10</span><span class="p">.</span><span class="mi">16</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">xz</span> <span class="o">-</span><span class="k">C</span> <span class="o">~/</span><span class="p">.</span><span class="n">nodejs</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>wget https://nodejs.org/dist/v10.16.0/node-v10.16.0-linux-x64.tar.xz
+mkdir .nodejs
+tar -xJvf node-v10.16.0-linux-x64.tar.xz -C ~/.nodejs
+</code></pre></div>
 
 
 <p>Precisamos adicionar a pasta <code>.nodejs/bin</code> como PATH(lembrando que vou mostrar com os comandos do fish, se você usar o bash ou zsh, é diferente):</p>
-<div class="highlight"><pre><span></span><span class="n">echo</span> <span class="ss">&quot;set -x PATH ~/.nodejs/node-v10.16.0-linux-x64/bin $PATH&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">config</span><span class="o">/</span><span class="n">fish</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">fish</span>
-<span class="k">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">config</span><span class="o">/</span><span class="n">fish</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">fish</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;set -x PATH ~/.nodejs/node-v10.16.0-linux-x64/bin </span><span class="nv">$PATH</span><span class="s2">&quot;</span> &gt;&gt; ~/.config/fish/config.fish
+<span class="nb">source</span> ~/.config/fish/config.fish
+</code></pre></div>
 
 
 <h3>Python Modules</h3>
 <p>Algumas bibliotecas do python que utilizo no meu estudo de <code>data science</code>:</p>
-<div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="c1">--upgrade pip --user</span>
-<span class="n">pip3</span> <span class="n">install</span> <span class="n">jupyter</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">numpy</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">scipy</span> <span class="c1">--user</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>pip3 install --upgrade pip --user
+pip3 install jupyter pandas matplotlib numpy scikit-learn scipy --user
+</code></pre></div>
     </article>
 
         <div class="tags">
@@ -279,15 +279,6 @@
         <!-- Custom Theme JavaScript -->
         <script src="https://mmazoni.github.io/theme/js/clean-blog.min.js"></script>
 
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-140012978-1', 'auto');
-    ga('send', 'pageview');
-</script>
 </body>
 
 </html>

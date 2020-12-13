@@ -8,14 +8,14 @@ Summary: Expectativas da minha entrada no mercado de TI
 
 
 <!-- ## Enfim, um estágio -->
-  
-Há algumas semanas troquei de emprego e finalmente entrei para a área de tecnologia no âmbito profissional, como sempre quis desde o meu ingresso no curso de Análise e Desenvolvimento de Sistemas. Agora estou estagiando no setor de Sistemas e faço parte da equipe que cuida da parte web da empresa. 
 
-Eu tinha dúvidas em qual área realmente eu ia focar o meu estudo, hoje ficou mais claro. É uma decisão difícil, sendo que há muitas opções e meu curso é muito generalista, não abrangendo muitas das novas tecnologias. Na minha faculdade tem um curso que seria o ideal para mim, Sistemas para Internet. Infelizmente só tem no período matutino, que ficaria impossível para mim por causa do trabalho. O corpo docente da faculdade diz que ADS não deve competir com ele, por isso não possui NADA relacionado ao desenvolvimento web, uma lástima não só para mim, mas também para outros alunos.  
+Há algumas semanas troquei de emprego e finalmente entrei para a área de tecnologia no âmbito profissional, como sempre quis desde o meu ingresso no curso de Análise e Desenvolvimento de Sistemas. Agora estou estagiando no setor de Sistemas e faço parte da equipe que cuida da parte web da empresa.
 
-É engraçado como o pensamento do estudante é indeciso. Um mês atrás estava estudando Python para automatização de tarefas, hoje estou estudando Front-end. A falta de foco é frustrante. Me sinto aliviado agora com a minha decisão feita, posso montar meu *road path* sem dor na consciência. 
+Eu tinha dúvidas em qual área realmente eu ia focar o meu estudo, hoje ficou mais claro. É uma decisão difícil, sendo que há muitas opções e meu curso é muito generalista, não abrangendo muitas das novas tecnologias. Na minha faculdade tem um curso que seria o ideal para mim, Sistemas para Internet. Infelizmente só tem no período matutino, que ficaria impossível para mim por causa do trabalho. O corpo docente da faculdade diz que ADS não deve competir com ele, por isso não possui NADA relacionado ao desenvolvimento web, uma lástima não só para mim, mas também para outros alunos.
 
-Eu sempre preferi a parte do Back-end do que o Front-end. Deve ser por eu ter bem mais familiaridade por causa da faculdade, mas acho que tenho medo de não ser criativo o suficiente para criar um design eficiente e bonito. Meu lado artístico se perdeu com o tempo, é algo que preciso despertar novamente. Eu desenhava bastante na minha infância. Meus desenhos não eram os melhores, mas chamavam bastante atenção, eu tinha uma criatividade peculiar. O que preciso é quebrar minhas crenças limitantes em relação ao meu potencial artístico. Tudo é possível na medida do seu esforço ao longo do tempo.  
+É engraçado como o pensamento do estudante é indeciso. Um mês atrás estava estudando Python para automatização de tarefas, hoje estou estudando Front-end. A falta de foco é frustrante. Me sinto aliviado agora com a minha decisão feita, posso montar meu *road path* sem dor na consciência.
+
+Eu sempre preferi a parte do Back-end do que o Front-end. Deve ser por eu ter bem mais familiaridade por causa da faculdade, mas acho que tenho medo de não ser criativo o suficiente para criar um design eficiente e bonito. Meu lado artístico se perdeu com o tempo, é algo que preciso despertar novamente. Eu desenhava bastante na minha infância. Meus desenhos não eram os melhores, mas chamavam bastante atenção, eu tinha uma criatividade peculiar. O que preciso é quebrar minhas crenças limitantes em relação ao meu potencial artístico. Tudo é possível na medida do seu esforço ao longo do tempo.
 
 Irei estudar mais com urgência algumas das tecnologias utilizadas na empresa, mas já foi designado a mim a fazer a parte do Front, ficando mais claro o que estudar primeiro.
 

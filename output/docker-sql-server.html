@@ -10,7 +10,7 @@
         <title>Instalando o SQL Server no Ubuntu 18.04 via Docker</title>
 
             <link href="https://mmazoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Full Atom Feed" />
-            <link href="https://mmazoni.github.io/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Categories Atom Feed" />
+            <link href="https://mmazoni.github.io/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Categories Atom Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="https://mmazoni.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,7 +18,7 @@
         <link href="https://mmazoni.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="https://mmazoni.github.io/theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="https://mmazoni.github.io/theme/css/code_blocks/github.css" rel="stylesheet">
 
 
         <!-- Custom Fonts -->
@@ -92,7 +92,7 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://mmazoni.github.io/theme/images/post-bg.jpg')">
+        <header class="intro-header" style="background-color: black">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -118,7 +118,7 @@
         <p>A maneira mais fácil que encontrei de usar o SQL Server no Linux, algo necessário para minha aula de banco de dados na faculdade. Vou dividir esse guia em três partes: instalação do Docker, criar a imagem SQL Server(docker)  e configurá-la, usar o DBeaver para gerenciar o banco.</p>
 <h2>Parte 1 - Docker</h2>
 <p>Vamos instalar o docker utilizando o repositório, primeiramente precisamos configurá-lo:</p>
-<div class="highlight"><pre><span></span>$ sudo apt-get update
+<div class="highlight"><pre><span></span><code>$ sudo apt-get update
 
 $ sudo apt-get install <span class="se">\</span>
     apt-transport-https <span class="se">\</span>
@@ -133,42 +133,42 @@ $ sudo add-apt-repository <span class="se">\</span>
    <span class="s2">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
 <span class="s2">   </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \</span>
 <span class="s2">   stable&quot;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Agora, iremos atualizar o repositório e instalar o docker:</p>
-<div class="highlight"><pre><span></span>$ sudo apt-get update
+<div class="highlight"><pre><span></span><code>$ sudo apt-get update
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 $ sudo docker run hello-world
-</pre></div>
+</code></pre></div>
 
 
-<p>Se instalou e rodou a imagem docker do "Hello World", então está tudo perfeito. </p>
+<p>Se instalou e rodou a imagem docker do "Hello World", então está tudo perfeito.</p>
 <p>Para não precisar sempre utilizar o <code>sudo</code>, iremos adicionar o docker ao grupo de usuário.</p>
-<div class="highlight"><pre><span></span>$ sudo usermod -aG docker <span class="nv">$USER</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ sudo usermod -aG docker <span class="nv">$USER</span>
+</code></pre></div>
 
 
 <p>Agora é necessário deslogar e logar novamente para ativar as alterações.</p>
 <p>Caso queira que o docker inicie no boot:</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl <span class="nb">enable</span> docker
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ sudo systemctl <span class="nb">enable</span> docker
+</code></pre></div>
 
 
 <p>Para desabilitar:</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl disable docker
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ sudo systemctl disable docker
+</code></pre></div>
 
 
 <h2>Parte 2 - Imagem SQL Server Docker</h2>
 <p>A partir daqui vou instalar a imagem do SQL Server, não utilizarei o sudo, pois adicionei o docker ao grupo de usuário. Para baixar e executar a imagem, utilize os comandos abaixo:</p>
-<div class="highlight"><pre><span></span>$ docker pull mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+<div class="highlight"><pre><span></span><code>$ docker pull mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
 
 $ docker run -e <span class="s2">&quot;ACCEPT_EULA=Y&quot;</span> -e <span class="s2">&quot;SA_PASSWORD=UmaSenhaForte&quot;</span> <span class="se">\</span>
    -p <span class="m">1433</span>:1433 --name sql1 <span class="se">\</span>
    -d mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
-</pre></div>
+</code></pre></div>
 
 
 <p>Os parâmetros passados:</p>
@@ -190,42 +190,42 @@ $ docker run -e <span class="s2">&quot;ACCEPT_EULA=Y&quot;</span> -e <span class
 </li>
 </ul>
 <p>Para exibir os containers do docker utilize o comando:</p>
-<div class="highlight"><pre><span></span>$ docker ps -a
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ docker ps -a
+</code></pre></div>
 
 
-<p><img alt="comando-docker" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/d3b4f8c81aeed408e399af55be521eb1/terminal-docker.png" title="Terminal com comando 'docker ps -a'" /></p>
+<p><img alt="comando-docker" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/d3b4f8c81aeed408e399af55be521eb1/terminal-docker.png" title="Terminal com comando 'docker ps -a'"></p>
 <p>Como você pode ver na imagem acima, no campo status todo estão como <code>Exited</code>, pois os containers estão destivados, quando ficarem Up é porque subiu o container. É necessário o comando:</p>
-<div class="highlight"><pre><span></span>$ docker start sql1
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ docker start sql1
+</code></pre></div>
 
 
 <h3>Conectando no SQL Server via linha de comando</h3>
 <ol>
 <li>Execute o container com o bash</li>
 </ol>
-<div class="highlight"><pre><span></span>$ <span class="nv">docker</span> <span class="k">exec</span> <span class="o">-</span><span class="nv">it</span> <span class="nv">sql1</span> <span class="s2">&quot;</span><span class="s">bash</span><span class="s2">&quot;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ docker <span class="nb">exec</span> -it sql1 <span class="s2">&quot;bash&quot;</span>
+</code></pre></div>
 
 
 <ol>
 <li>Agora dê o comando do SQL Server com os parâmetros da senha</li>
 </ol>
-<div class="highlight"><pre><span></span>$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P <span class="s2">&quot;&lt;UmaSenhaForte&gt;&quot;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P <span class="s2">&quot;&lt;UmaSenhaForte&gt;&quot;</span>
+</code></pre></div>
 
 
 <p>Se tudo ocorreu bem, você estará no SQL Server, no prompt de comando. Agora já pode usar os comandos SQL para manipular dados, mas vou mostrar como instalar e se conectar com o DBeaver.</p>
 <h2>Parte 3 - Conectando no SQL Server via DBeaver</h2>
 <p>Para instalar, baixe o instalador <code>.deb</code> no <a href="https://dbeaver.io/download/">site deles</a> e clique duplo para instalar.</p>
 <p>Abra o DBeaver e clique no ícone de criar uma conexão de banco:</p>
-<p><img alt="conexao-dbeaver" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/a8cc1a49b8b35887e91858ecb0447f12/database-connection.png" title="Ícone de criar conexão" /></p>
+<p><img alt="conexao-dbeaver" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/a8cc1a49b8b35887e91858ecb0447f12/database-connection.png" title="Ícone de criar conexão"></p>
 <p>Escolha o SQL Server e clique em <code>Next</code>:</p>
-<p><img alt="sql-server" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/8105d0cb761d9af25644eefedf949a14/sql-server.png" title="SQL Server" /></p>
+<p><img alt="sql-server" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/8105d0cb761d9af25644eefedf949a14/sql-server.png" title="SQL Server"></p>
 <p>Apenas coloque SA no nome de usuário e a senha do SA e clique em <code>Finish</code>:</p>
-<p><img alt="criando-conexao" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/b476c7a2b7d9994432ac70bcc10804b0/conectar-sql.png" title="Criando conexão" /></p>
+<p><img alt="criando-conexao" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/b476c7a2b7d9994432ac70bcc10804b0/conectar-sql.png" title="Criando conexão"></p>
 <p>Após isso ele irá pedir para instalar um plugin para utilizar o SQL Server, que é necessário apenas confirmar que ele já baixa e instala. Depois disso é só começar a manipular os dados com o DBeaver utilizando o SQL Server. Lembrando que quando você desligar ou reiniciar o computador, será necessário subir o container do SQL Server novamente.</p>
-<p><img alt="conexoes" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/09f0ac6c7440c078b31a86cb1745c6c7/conexoes.png" title="DBeaver" /></p>
+<p><img alt="conexoes" src="https://trello-attachments.s3.amazonaws.com/5a9ad7ae3d56417005320ecd/5eb92a44f4a2f55fbe5aee93/09f0ac6c7440c078b31a86cb1745c6c7/conexoes.png" title="DBeaver"></p>
     </article>
 
         <div class="tags">
@@ -304,15 +304,6 @@ $ docker run -e <span class="s2">&quot;ACCEPT_EULA=Y&quot;</span> -e <span class
         <!-- Custom Theme JavaScript -->
         <script src="https://mmazoni.github.io/theme/js/clean-blog.min.js"></script>
 
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-140012978-1', 'auto');
-    ga('send', 'pageview');
-</script>
 </body>
 
 </html>

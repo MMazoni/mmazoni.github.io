@@ -1,8 +1,8 @@
 Title: Instalando o SQL Server no Ubuntu 18.04 via Docker
 Date: 2020-05-06 17:55
-Tags: sql, docker, ubuntu, server 
+Tags: sql, docker, ubuntu, server
 Slug: docker-sql-server
-Authors: Matheus Mazoni 
+Authors: Matheus Mazoni
 Summary: Tutorial para instalar o Docker, SQL Server e utilizar com o DBeaver
 
 A maneira mais fácil que encontrei de usar o SQL Server no Linux, algo necessário para minha aula de banco de dados na faculdade. Vou dividir esse guia em três partes: instalação do Docker, criar a imagem SQL Server(docker)  e configurá-la, usar o DBeaver para gerenciar o banco.
@@ -37,14 +37,14 @@ $ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 $ sudo docker run hello-world
 ```
-Se instalou e rodou a imagem docker do "Hello World", então está tudo perfeito. 
+Se instalou e rodou a imagem docker do "Hello World", então está tudo perfeito.
 
 Para não precisar sempre utilizar o `sudo`, iremos adicionar o docker ao grupo de usuário.
 
 ```
 $ sudo usermod -aG docker $USER
 ```
- 
+
 Agora é necessário deslogar e logar novamente para ativar as alterações.
 
 Caso queira que o docker inicie no boot:

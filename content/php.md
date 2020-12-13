@@ -1,8 +1,8 @@
 Title: Ambiente de desenvolvimento em PHP
 Date: 2019-12-02 21:12
-Tags: php, coding, environment 
-Slug: php-environment 
-Authors: Matheus Mazoni 
+Tags: php, coding, environment
+Slug: php-environment
+Authors: Matheus Mazoni
 Summary: Ambiente de desenvolvimento em PHP no trabalho
 
 <!-- ## Ambiente Desenvolvimento PHP -->
@@ -32,9 +32,11 @@ sudo mv oracle /opt/
 
 Adicione a pasta ao __ldconfig__ e use o comando.
 
-	export LD_LIBRARY_PATH=/opt/oracle/instantclient_19_3
-	sudo sh -c "echo /opt/oracle/instantclient_19_3 > /etc/ld.so.conf.d/oracle-instantclient.conf"
-	sudo ldconfig
+```sh
+export LD_LIBRARY_PATH=/opt/oracle/instantclient_19_3
+sudo sh -c "echo /opt/oracle/instantclient_19_3 > /etc/ld.so.conf.d/oracle-instantclient.conf"
+sudo ldconfig
+```
 
 Utilizamos o banco Oracle e precisamos da extensão `oci8` no PHP, iremos ativar na compilação dele.
 
@@ -44,18 +46,18 @@ Há duas formas mais comuns de instalar o PHP no Linux, usar os comandos no term
 
 Instale as dependências
 
-```
+```sh
 sudo apt install autoconf automake bison build-essential curl flex \
     libtool libssl-dev libcurl4-openssl-dev libxml2-dev libonig-dev \
     libreadline-dev libsqlite3-dev libzip-dev nginx openssl \
-    pkg-config re2c sqlite3 zlib1g-dev 
+    pkg-config re2c sqlite3 zlib1g-dev
 ```
 
 [Baixe o PHP](https://www.php.net/downloads.php). Lembrando que utilizei a versão 7.3. Descompacte e entre no diretório pelo terminal.
 
 Crie um diretório para separar de outras versões do PHP e compile
 
-```
+```sh
 mkdir  ~/php7.3/
 
 ./configure --prefix=$HOME/php7.3 \
@@ -91,12 +93,13 @@ sudo make install
 
 4. Agora, algumas modificações para tudo dar certo.
 
-```
+```sh
 cp php.ini-development ~/php7.3/lib/php.ini
 cd ~/php7.3/etc/
 mv php-fpm.conf.default php-fpm.conf
 mv php-fpm.d/www.conf.default php-fpm.d/www.conf
 ```
+
 Adicione a caminho ~/php7.3/bin [para a variável $PATH](https://gist.github.com/nex3/c395b2f8fd4b02068be37c961301caa7)
 
 Para testar se o PHP está funcionando.
@@ -115,14 +118,18 @@ A partir daqui iremos instalar os requisitos para  o __Laravel__, o composer é 
 
 Apenas rode os comandos abaixo para instalar o composer, tirado diretamento do [site oficial](https://getcomposer.org).
 
-	php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-	php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-	php composer-setup.php
-	php -r "unlink('composer-setup.php');"
+```php
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
 
 Agora precisamos mover o arquivo `composer.phar` para a pasta de binários do sistema(irei renomear para apenas 'composer').
 
-	sudo mv composer.phar /usr/bin/composer
+```sh
+sudo mv composer.phar /usr/bin/composer
+```
 
 Digite 'composer --version' e o output será parecido com esse:
 
@@ -132,12 +139,16 @@ Digite 'composer --version' e o output será parecido com esse:
 
 Instalei o `node` e o `npm` pelo pelo próprio repositório do Ubuntu, mas você também pode instalar uma versão mais recente pelo [site oficial](https://nodejs.org/en/).
 
-	sudo apt install nodejs nodejs-dev node-gyp libssl1.0-dev npm
+```sh
+sudo apt install nodejs nodejs-dev node-gyp libssl1.0-dev npm
+```
 
 Para confirmar:
 
-	nodejs -v
-	npm -v
+```sh
+nodejs -v
+npm -v
+```
 
 Se apareceu o número da versão, está tudo certo.
 
@@ -145,41 +156,49 @@ Se apareceu o número da versão, está tudo certo.
 
 Utilize o comando abaixo para o composer instalar o Laravel e depois adicionar no $PATH
 
-	composer global require laravel/installer
-	echo 'export PATH="PATH:/$HOME/.config/composer/vendor/bin/"' | sudo tee -a ~/.bashrc
+```sh
+composer global require laravel/installer
+echo 'export PATH="PATH:/$HOME/.config/composer/vendor/bin/"' | sudo tee -a ~/.bashrc
+```
 
 ## 6 - Oracle SQL Developer
 
 Um dos pré-requisitos é a instalação do Java 8 para cima, recomendo que instale o [Java da Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), pois o OpenJDK não é o suficiente, sendo necessário a instalação de mais bibliotecas por fora para o SQL Developer funcionar corretamente.
 
 Para instalá-lo, apenas baixe o jdk-8 no formato ´tar.gz´ e extraia para a pasta /opt/jdk.
-	
-	sudo mkdir  -p /opt/jdk
-	sudo cp -rf /$HOME/Downloads/jdk-8u231-linux-x64.tar.gz /opt/jdk/
-	cd /opt/jdk/
-	sudo tar -zxf jdk-8u231-linux-x64.tar.gz
 
-Com o java instalado, agora vamos baixar o [SQL Developer](https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html). Utilizei o "Other Platforms". 
+```sh
+sudo mkdir  -p /opt/jdk
+sudo cp -rf /$HOME/Downloads/jdk-8u231-linux-x64.tar.gz /opt/jdk/
+cd /opt/jdk/
+sudo tar -zxf jdk-8u231-linux-x64.tar.gz
+```
+
+Com o java instalado, agora vamos baixar o [SQL Developer](https://www.oracle.com/tools/downloads/sqldev-v192-downloads.html). Utilizei o "Other Platforms".
 
 Extraia o zip baixado e siga os passos abaixo para a instalação:
 
-	sudo unzip /$HOME/Downloads/sqldeveloper-*-no-jre.zip -d /opt/
-	sudo chmod +x /opt/sqldeveloper/sqldeveloper.sh
-	sudo ln -s /opt/sqldeveloper/sqldeveloper.sh /usr/local/bin/sqldeveloper
+```sh
+sudo unzip /$HOME/Downloads/sqldeveloper-*-no-jre.zip -d /opt/
+sudo chmod +x /opt/sqldeveloper/sqldeveloper.sh
+sudo ln -s /opt/sqldeveloper/sqldeveloper.sh /usr/local/bin/sqldeveloper
+```
 
 Edite o script /opt/sqldeveloper/sqldeveloper.sh por:
-	
-	#!/bin/bash
-	unset -v GNOME_DESKTOP_SESSION_ID
-	cd /opt/sqldeveloper/sqldeveloper/bin
-	./sqldeveloper "$@"
+
+```sh
+#!/bin/bash
+unset -v GNOME_DESKTOP_SESSION_ID
+cd /opt/sqldeveloper/sqldeveloper/bin
+./sqldeveloper "$@"
+```
 
 Quando você executar o SQL Developer, vai ser necessário colocar o caminho da pasta do Java, irei colocar o meu como exemplo:
 
 	sqldeveloper
-	
+
 	/opt/jdk/jdk1.8.0_231/
-	
+
 
 Com isso finaliza a instalação do meu ambiente de desenvolvimento com PHP no trabalho. Há alguns programas adicionais utilizados por mim, acho bom apenas citar, que são:
 

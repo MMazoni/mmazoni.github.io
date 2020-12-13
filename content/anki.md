@@ -1,8 +1,8 @@
 Title: Você conhece o Anki?
-Date: 2019-10-15 22:59 
+Date: 2019-10-15 22:59
 Tags: anki, flashcard, estudo
 Slug: anki
-Authors: Matheus Mazoni 
+Authors: Matheus Mazoni
 Summary: Usando Anki: estudos por flashcards
 
 <!-- ## Estudos por Flashcards -->
@@ -44,7 +44,7 @@ Há muitas possibilidades de estudo com o Anki, concurseiros e vestibulandos uti
 + Provas e exames
 + Acordes de música
 
-O Anki é de grande ajuda na hora de estudar, quando você cria os Decks em si já é um estudo, depois é só ir revisando sempre utilizando a Repetição Espaçada, que é nativo da aplicação. Eu tinha deixado de usar, mas vou ver se consigo colocar de novo na minha rotina e usá-lo no meu estudo de programação.  
+O Anki é de grande ajuda na hora de estudar, quando você cria os Decks em si já é um estudo, depois é só ir revisando sempre utilizando a Repetição Espaçada, que é nativo da aplicação. Eu tinha deixado de usar, mas vou ver se consigo colocar de novo na minha rotina e usá-lo no meu estudo de programação.
 
 
 <!-- ### Repetição Espaçada

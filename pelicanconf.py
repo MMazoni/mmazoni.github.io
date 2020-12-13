@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
-from __future__ import unicode_literals
 
 AUTHOR = 'Matheus Mazoni'
 SITENAME = 'MMazoni Blog'
@@ -20,14 +19,14 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
+LINKS = (('Pelican', 'https://getpelican.com/'),
+         ('Python.org', 'https://www.python.org/'),
+         ('Jinja2', 'https://palletsprojects.com/p/jinja/'),
          ('You can modify those links in your config file', '#'),)
 
 # Social widget
 SOCIAL = (('Linkedin', 'https://www.linkedin.com/in/matheus-mazoni/'),
-	  ('twitter', 'https://twitter.com/mazoni_matheus'),
+          ('twitter', 'https://twitter.com/mazoni_matheus'),
           ('github', 'https://github.com/MMazoni'),
           ('instagram','https://www.instagram.com/mazoni.matheus'),
           ('envelope','mailto:mmazoni.andrade@gmail.com'))
@@ -36,7 +35,6 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
-MARKUP = ('md', 'ipynb')
-THEME = "pelican-clean-blog"
-IGNORE_FILES = [".ipynb_checkpoints"]
-GOOGLE_ANALYTICS ='UA-140012978-1' 
+THEME = 'pelican-clean-blog'
+COLOR_SCHEME_CSS = 'github.css'
+HEADER_COLOR = 'black'
