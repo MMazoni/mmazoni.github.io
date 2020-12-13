@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog - ChromeOS</title><link href="https://mmazoni.github.io/" rel="alternate"></link><link href="https://mmazoni.github.io/feeds/chromeos.atom.xml" rel="self"></link><id>https://mmazoni.github.io/</id><updated>2019-06-03T20:24:00-03:00</updated><entry><title>Configurando Crostini para desenvolvimento</title><link href="https://mmazoni.github.io/my-crostini-setup.html" rel="alternate"></link><published>2019-04-13T22:20:00-03:00</published><updated>2019-06-03T20:24:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-04-13:/my-crostini-setup.html</id><summary type="html">&lt;p&gt;Instalação inicial do Linux container: "Crostini"&lt;/p&gt;</summary><content type="html">&lt;!-- ## Cromebook setup --&gt;
+
+&lt;p&gt;Primeiramente vamos fazer o update e upgrade do sistema. Lembrando que o Crostini é um container Linux baseado em Debian Stretch.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;    sudo apt update &amp;amp;&amp;amp; sudo apt upgrade&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Agora, vamos instalar alguns pré-requisitos para compilar o código fonte dessas aplicações no Crostini, como o &lt;em&gt;python&lt;/em&gt; e o &lt;em&gt;vim&lt;/em&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install -y clang make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Python&lt;/h3&gt;
+&lt;p&gt;Primeiramente vou instalar o &lt;code&gt;python3.7&lt;/code&gt;, compilando o código-fonte, pois o python3 padrão do repositório Debian não funcionou o &lt;em&gt;jupyter notebook&lt;/em&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A versão do python que for instalado pode ser facilmente alterado, mudando nas instruções abaixo o número da versão. Ao invés de ser &lt;code&gt;3.7.2&lt;/code&gt; poderia muito bem ser &lt;code&gt;3.6.5&lt;/code&gt; (ou qualquer outro), o primeiro comando ficaria: "wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz" e assim por diante.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
+tar xzf Python-3.7.2.tgz
+&lt;span class="nb"&gt;cd&lt;/span&gt; Python-3.7.2
+./configure --enable-optimizations
+make
+sudo make install
+&lt;span class="nb"&gt;cd&lt;/span&gt; ..
+sudo rm -rf Python-3.7.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Vim&lt;/h3&gt;
+&lt;p&gt;Como o python, iremos compilar também o vim para habilitar o interpretador.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt remove vim
+git clone https://github.com/vim/vim.git
+&lt;span class="nb"&gt;cd&lt;/span&gt; vim
+./configure --with-features&lt;span class="o"&gt;=&lt;/span&gt;huge &lt;span class="se"&gt;\&lt;/span&gt;
+    --enable-multibyte &lt;span class="se"&gt;\&lt;/span&gt;
+    --enable-python3interp&lt;span class="o"&gt;=&lt;/span&gt;yes &lt;span class="se"&gt;\ &lt;/span&gt;       --with-python3-config-dir&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu/ &lt;span class="se"&gt;\&lt;/span&gt;
+    --enable-gui&lt;span class="o"&gt;=&lt;/span&gt;gtk2 &lt;span class="se"&gt;\&lt;/span&gt;
+    --enable-cscope &lt;span class="se"&gt;\&lt;/span&gt;
+    --prefix&lt;span class="o"&gt;=&lt;/span&gt;/usr/local &lt;span class="se"&gt;\&lt;/span&gt;
+    --with-tlib&lt;span class="o"&gt;=&lt;/span&gt;ncurses
+make &lt;span class="nv"&gt;VIMRUNTIMEDIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/share/vim/vim80
+sudo make altinstall
+&lt;span class="nb"&gt;cd&lt;/span&gt; ..
+rm -rf vim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Existem vários gerenciadores de plugins do vim, o que utilizo é o &lt;em&gt;Vundle&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;É preciso criar um arquivo .vimrc para colocar as configurações do vim, se quiser utilizar as &lt;a href="https://github.com/MMazoni/configuration-files/blob/master/.vimrc"&gt;minhas configurações&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Fish&lt;/h3&gt;
+&lt;p&gt;Eu comecei utilizar o &lt;code&gt;fish&lt;/code&gt; por causa de uma vídeo aula em que o instrutor usava, o autocomplete dele é muito bom, ele é bem leve e não precisa quase de configuração, diferente do &lt;em&gt;zsh&lt;/em&gt; que é o mais famoso e utilizado por programadores, por sua alta customização e variedade de plugins. Eles são uma alternativa ao padrão &lt;em&gt;bash&lt;/em&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install fish
+which fish
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pegue o que retornou desse comando, normalmente &lt;code&gt;/usr/bin/fish&lt;/code&gt;, e coloque no lugar onde esteja o &lt;code&gt;/bin/bash&lt;/code&gt; na linha do seu &lt;strong&gt;username&lt;/strong&gt; no arquivo &lt;code&gt;passwd&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo vim /etc/passwd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Node-js&lt;/h3&gt;
+&lt;p&gt;Iremos baixar do site oficial a versão 10.16.0 LTS.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;wget https://nodejs.org/dist/v10.16.0/node-v10.16.0-linux-x64.tar.xz
+mkdir .nodejs
+tar -xJvf node-v10.16.0-linux-x64.tar.xz -C ~/.nodejs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Precisamos adicionar a pasta &lt;code&gt;.nodejs/bin&lt;/code&gt; como PATH(lembrando que vou mostrar com os comandos do fish, se você usar o bash ou zsh, é diferente):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;set -x PATH ~/.nodejs/node-v10.16.0-linux-x64/bin &lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; ~/.config/fish/config.fish
+&lt;span class="nb"&gt;source&lt;/span&gt; ~/.config/fish/config.fish
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Python Modules&lt;/h3&gt;
+&lt;p&gt;Algumas bibliotecas do python que utilizo no meu estudo de &lt;code&gt;data science&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pip3 install --upgrade pip --user
+pip3 install jupyter pandas matplotlib numpy scikit-learn scipy --user
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="ChromeOS"></category><category term="crostini"></category><category term="python"></category><category term="vim"></category><category term="zsh"></category><category term="node-js"></category></entry><entry><title>Review Samsung Chromebook 3</title><link href="https://mmazoni.github.io/review-cromebook.html" rel="alternate"></link><published>2019-03-29T00:00:00-03:00</published><updated>2019-03-29T00:00:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:mmazoni.github.io,2019-03-29:/review-cromebook.html</id><summary type="html">&lt;p&gt;Minhas impressões do meu novo Chromebook&lt;/p&gt;</summary><content type="html">&lt;!-- ## Minhas impressões do meu novo Chromebook --&gt;
+
+&lt;p&gt;Infelizmente ou felizmente, o notebook que meu  irmão tinha me dado parou de funcionar. Era um &lt;em&gt;semp toshiba&lt;/em&gt; que não lembro o modelo, mas tinha: 4gb de ram; intel core i3 com 2,5ghz de clock; SSD de 120gb de armazenamento, placa de vídeo Intel HD graphics. Para minha utilização ele estava servindo muito bem, programação, estudar, navegar na internet, assistir YouTube e Netflix. Eu não jogo mais e não faço nada que precise de um computador potente.&lt;/p&gt;
+&lt;p&gt;Eu já tinha instalado uma distribuição linux que era baseado no chrome OS. O &lt;a href="https://www.neverware.com/freedownload"&gt;CloudReady&lt;/a&gt; deixou minha máquina bastante leve, realmente gostei e a única coisa não me deixou migrar totalmente para esse sistema era a inexistência dos aplicativos do linux. Era muito frustante usar o terminal e não ter repositórios para baixar programas linux.&lt;/p&gt;
+&lt;p&gt;O que me fez comprar um chromebook ao invés de um notebook padrão foi o preço, muito barato comparado aos outros e ainda peguei uma promoção no site da KabuM. Pesquisei muito antes de fazer a compra, pontos positivos e negativos, se tinha alternativas para fazer as minhas tarefas rotineiras.&lt;/p&gt;
+&lt;p&gt;Não foi difícil a escolha do Samsung Chromebook 3, por causa da promoção e por ser bastante compacto e leve. Eu coloco ele na bolsa e nem parece que tem um notebook. Uma coisa que devia ter investido mais, seria o armazenamento interno, ter comprado o de 32gb e não o de 16gb. O teclado é muito bem acabado, 1000x melhor do que tinha. É diferente do teclado padrão e já me acostumei. Os atalhos são muito práticos, quando você aprende eles é simplesmente outra coisa, a navegação pelo chromebook se torna fluída.&lt;/p&gt;
+&lt;p&gt;As primeiras semanas foram frustradas. Sou hard user e gosto de fuçar tudo do sistema. Demorou um pouco para se acostumar, muitos &lt;em&gt;powerwashs&lt;/em&gt;, ativa e desativa &lt;em&gt;modo desenvolvedor&lt;/em&gt;. No final conseguir ter o melhor setup de desenvolvimento que funciona para mim. Deixei sem o modo desenvolvedor, com o container do linux (Debian). Intalei o &lt;em&gt;python&lt;/em&gt; e &lt;em&gt;vim&lt;/em&gt; do código fonte para ter as versões mais recentes. Utilizei o &lt;em&gt;VisualStudio Code&lt;/em&gt; como IDE, &lt;em&gt;Caret&lt;/em&gt; para simples notas e sempre salvando os aquivos no Google Drive pelo Files, o que economiza bastante espaço. No começo eu tinha preconceito com o Files, mas com o tempo eu vi como ele é bastante util com o acesso direto ao Drive.&lt;/p&gt;
+&lt;p&gt;O espaço no começo me incomodou bastante, mas descobri que a melhor forma de persquisar por aplicações é: Chrome Apps --&gt; Android Apps --&gt; Linux Apps. Seguindo essa ordem, faz com que econimize espaço, geralmente os WebApps ocupam menos espaço. Lembre-se, há aplicativos que são excessões a essa regra.&lt;/p&gt;</content><category term="ChromeOS"></category><category term="chromeos"></category><category term="python"></category></entry></feed>
