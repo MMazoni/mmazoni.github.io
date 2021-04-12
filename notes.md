@@ -45,11 +45,11 @@ python -m http.server
 
 ## Pelican Themes
 
-git clone git@github.com:gilsondev/pelican-clean-blog.git
+git submodule add git@github.com:gilsondev/pelican-clean-blog.git theme/clean-blog
 
 pelican-themes -l
 
-pelican-themes -i ~/pelican-clean-blog
+pelican-themes -i theme/clean-blog/
 
 ## Publish
 

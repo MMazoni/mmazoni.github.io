@@ -3,7 +3,7 @@
 
 AUTHOR = 'Matheus Mazoni'
 SITENAME = 'MMazoni Blog'
-SITEURL = 'https://mmazoni.github.io'
+SITEURL = 'https://mmazoni.me'
 
 PATH = 'content'
 
@@ -35,6 +35,6 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
-THEME = 'pelican-clean-blog'
+THEME = 'clean-blog'
 COLOR_SCHEME_CSS = 'github.css'
 HEADER_COLOR = 'black'

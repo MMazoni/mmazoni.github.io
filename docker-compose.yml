@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  pelican:
+    build: .
+    command: ash -c "cd /code/output && python -m http.server"
+    container_name: pelican
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
