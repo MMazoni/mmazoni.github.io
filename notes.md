@@ -57,9 +57,9 @@ pelican content -s publishconf.py
 
 git checkout -b dev
 
-ghp-import output -b master
+ghp-import output -b main
 
-git push origin master
+git push origin main
 
 ## MISC
 
