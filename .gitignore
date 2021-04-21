@@ -129,3 +129,4 @@ dmypy.json
 Makefile.sublime-workspace
 
 venv/
+output/
