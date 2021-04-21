@@ -1,4 +1,4 @@
-FROM python:3.8.9-alpine3.12
+FROM python:3.8-buster
 
 RUN mkdir /code
 WORKDIR /code
