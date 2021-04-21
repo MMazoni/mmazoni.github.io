@@ -53,6 +53,8 @@ pelican-themes -i theme/clean-blog/
 
 ## Publish
 
+docker exec -it blog 'command'
+
 pelican content -s publishconf.py
 
 git checkout -b dev

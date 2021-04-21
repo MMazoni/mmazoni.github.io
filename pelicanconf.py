@@ -8,8 +8,9 @@ SITEURL = 'https://mmazoni.me'
 PATH = 'content'
 
 TIMEZONE = 'America/Sao_Paulo'
-
-DEFAULT_LANG = 'en'
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+DEFAULT_LANG = 'pt_BR'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -34,7 +35,7 @@ SOCIAL = (('Linkedin', 'https://www.linkedin.com/in/matheus-mazoni/'),
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
 THEME = 'clean-blog'
 COLOR_SCHEME_CSS = 'github.css'
-HEADER_COLOR = 'black'
+#HEADER_COLOR = 'black'
