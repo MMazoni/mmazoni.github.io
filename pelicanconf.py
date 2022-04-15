@@ -3,13 +3,13 @@
 
 AUTHOR = 'Matheus Mazoni'
 SITENAME = 'MMazoni Blog'
-SITEURL = 'https://mmazoni.me'
+SITEURL = 'https://mmazoni.github.io'
 
 PATH = 'content'
 
 TIMEZONE = 'America/Sao_Paulo'
-STATIC_PATHS = ['images', 'extra/CNAME']
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+#STATIC_PATHS = ['images', 'extra/CNAME']
+#EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
 DEFAULT_LANG = 'pt_BR'
 
 # Feed generation is usually not desired when developing
@@ -29,8 +29,8 @@ LINKS = (('Pelican', 'https://getpelican.com/'),
 SOCIAL = (('Linkedin', 'https://www.linkedin.com/in/matheus-mazoni/'),
           ('twitter', 'https://twitter.com/mazoni_matheus'),
           ('github', 'https://github.com/MMazoni'),
-          ('instagram','https://www.instagram.com/mazoni.matheus'),
-          ('envelope','mailto:mmazoni.andrade@gmail.com'))
+          ('instagram', 'https://www.instagram.com/mazoni.matheus'),
+          ('envelope', 'mailto:mmazoni.andrade@gmail.com'))
 
 DEFAULT_PAGINATION = 10
 
