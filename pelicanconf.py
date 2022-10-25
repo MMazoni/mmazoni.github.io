@@ -3,13 +3,13 @@
 
 AUTHOR = 'Matheus Mazoni'
 SITENAME = 'MMazoni Blog'
-SITEURL = 'https://mmazoni.github.io'
+SITEURL = 'https://matheusmazoni.com.br'
 
 PATH = 'content'
 
 TIMEZONE = 'America/Sao_Paulo'
-#STATIC_PATHS = ['images', 'extra/CNAME']
-#EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
 DEFAULT_LANG = 'pt_BR'
 
 # Feed generation is usually not desired when developing
