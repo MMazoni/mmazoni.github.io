@@ -8,7 +8,7 @@ SITEURL = 'https://matheusmazoni.com.br'
 PATH = 'content'
 
 TIMEZONE = 'America/Sao_Paulo'
-STATIC_PATHS = ['images', 'extra/CNAME']
+STATIC_PATHS = ['extra/CNAME']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}, }
 DEFAULT_LANG = 'pt_BR'
 
