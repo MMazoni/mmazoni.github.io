@@ -1,5 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog - misc</title><link href="https://matheusmazoni.com.br/" rel="alternate"></link><link href="https://matheusmazoni.com.br/feeds/misc.atom.xml" rel="self"></link><id>https://matheusmazoni.com.br/</id><updated>2021-12-02T21:12:00-03:00</updated><entry><title>Meus primeiros 2 anos de programação</title><link href="https://matheusmazoni.com.br/two-years-experience.html" rel="alternate"></link><published>2021-12-02T21:12:00-03:00</published><updated>2021-12-02T21:12:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:matheusmazoni.com.br,2021-12-02:/two-years-experience.html</id><summary type="html">&lt;p&gt;Um relato do início da minha carreira com programação até os dias de hoje.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Quando eu estava nos primeiros semestres da faculdade, eu já trabalhava, porém ainda não era na área de tecnologia. Nessa época, mandava currículo para várias empresas em busca de migrar para desenvolvimento logo no início, para quando eu estivesse prestes a me formar, eu já estaria trabalhando como Desenvolvedor Júnior. Pelo menos era isso o que eu almejava.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MMazoni Blog - misc</title><link href="https://matheusmazoni.com.br/" rel="alternate"></link><link href="https://matheusmazoni.com.br/feeds/misc.atom.xml" rel="self"></link><id>https://matheusmazoni.com.br/</id><updated>2022-04-21T11:34:00-03:00</updated><entry><title>Utilizando Ansible para automatizar ambiente local</title><link href="https://matheusmazoni.com.br/ansible-local-dev-1.html" rel="alternate"></link><published>2022-04-21T11:34:00-03:00</published><updated>2022-04-21T11:34:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:matheusmazoni.com.br,2022-04-21:/ansible-local-dev-1.html</id><summary type="html">&lt;p&gt;Automatizar a configuração do meu ambiente de Desenvolvimento do Chromebook com Ansible&lt;/p&gt;</summary><content type="html">&lt;p&gt;Se você leu os primeiros posts do meu blog, deve saber que tenho um chromebook. Hoje em dia, a forma mais fácil e nativa de desenvolvimento é utilizando o Crostini. É um LXC (Linux Containers), que vem na distro Debian por padrão, mas dá para mudar para Ubuntu, Arch Linux entre outras. Eu tenho um problema muito grande chamado: &lt;em&gt;espaço em disco&lt;/em&gt;. Como meu chromebook tem apenas 16Gb de disco, o Crostini consegue alocar no máximo 7Gb, sendo que o sistema do Linux por si só já deve comer uns 2Gb.&lt;/p&gt;
+&lt;p&gt;Geralmente faço reboot desse container para diferentes setups de desenvolvimento (Node+Docker, Terraform+Kubernetes, PHP+Python+MySQL). E fazer a instalação dos pacotes tudo na mão toda hora que eu troco entre esses setup é um saco. É aí que entra o Ansible. Conheci recentemente por uma indicação de um colega do trabalho. Pesquisei e vi uns vídeos da Alura sobre o assunto e já consegui brincar um pouquinho para automatizar o provisionamento de meu ambiente padrão de desenvolvimento no Crostini.&lt;/p&gt;
+&lt;p&gt;A ideia era fazer a migração de um script bash para o Ansible. Segue abaixo o meu script:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Mazoni Environment Script!&amp;quot;&lt;/span&gt;
+
+sudo apt update
+sudo apt upgrade -y
+sudo apt install git curl fish wget -y
+
+&lt;span class="c1"&gt;# fish&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Configuring fish...&amp;quot;&lt;/span&gt;
+mkdir ~/.config/fish
+curl -o ~/.config/fish/config.fish https://raw.githubusercontent.com/MMazoni/configuration-files/master/.config/fish/config.fish
+sudo chsh -s &lt;span class="k"&gt;$(&lt;/span&gt;which fish&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="nv"&gt;$USER&lt;/span&gt;
+
+&lt;span class="c1"&gt;# vim&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Configuring vim...&amp;quot;&lt;/span&gt;
+curl -o ~/.vimrc https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vimrc
+curl -o ~/.vim/colors/atlantic-dark.vim https://raw.githubusercurrent.com/MMazoni/configuration-files/master/.vim/colors/atlantic-dark.vim --create-dirs
+
+&lt;span class="c1"&gt;# github&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Configuring git...&amp;quot;&lt;/span&gt;
+git config --global user.name &lt;span class="s2"&gt;&amp;quot;Matheus Mazoni&amp;quot;&lt;/span&gt;
+git config --global user.email &lt;span class="s2"&gt;&amp;quot;mmazoni.andrade@gmail.com&amp;quot;&lt;/span&gt;
+git config --global core.editor vim
+ssh-keygen -t rsa -b &lt;span class="m"&gt;4096&lt;/span&gt; -C &lt;span class="s2"&gt;&amp;quot;mmazoni.andrade@gmail.com&amp;quot;&lt;/span&gt;
+&lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;ssh-agent -s&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+ssh-add ~/.ssh/id_rsa
+&lt;span class="nv"&gt;sshcode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;cat ~/.ssh/id_rsa.pub&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$sshcode&lt;/span&gt;
+&lt;span class="nb"&gt;read&lt;/span&gt; -p &lt;span class="s2"&gt;&amp;quot;Press enter to continue&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# docker&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Installing docker...&amp;quot;&lt;/span&gt;
+sudo apt remove docker docker-engine docker.io containerd runc -y
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class="p"&gt;|&lt;/span&gt; sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \&lt;/span&gt;
+&lt;span class="s2"&gt;  &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; stable&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+sudo groupadd docker
+sudo usermod -aG docker &lt;span class="nv"&gt;$USER&lt;/span&gt;
+
+&lt;span class="c1"&gt;# docker-compose&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Installing docker-compose...&amp;quot;&lt;/span&gt;
+sudo curl -L &lt;span class="s2"&gt;&amp;quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;uname -s&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;-&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;uname -m&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+&lt;span class="c1"&gt;# node&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Installing node and yarn...&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;nodeversion&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;v14.17.3&amp;quot;&lt;/span&gt;
+curl -o &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/.node/node-&lt;/span&gt;&lt;span class="nv"&gt;$nodeversion&lt;/span&gt;&lt;span class="s2"&gt;-linux-x64.tar.xz&amp;quot;&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://nodejs.org/dist/&lt;/span&gt;&lt;span class="nv"&gt;$nodeversion&lt;/span&gt;&lt;span class="s2"&gt;/node-&lt;/span&gt;&lt;span class="nv"&gt;$nodeversion&lt;/span&gt;&lt;span class="s2"&gt;-linux-x64.tar.xz&amp;quot;&lt;/span&gt; --create-dirs
+tar -xvf &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/.node/node-&lt;/span&gt;&lt;span class="nv"&gt;$nodeversion&lt;/span&gt;&lt;span class="s2"&gt;-linux-x64.tar.xz&amp;quot;&lt;/span&gt; -C ~/.node/
+rm &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/.node/node-&lt;/span&gt;&lt;span class="nv"&gt;$nodeversion&lt;/span&gt;&lt;span class="s2"&gt;-linux-x64.tar.xz&amp;quot;&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;set -x PATH \$HOME/.node/node-&lt;/span&gt;&lt;span class="nv"&gt;$nodeversion&lt;/span&gt;&lt;span class="s2"&gt;-linux-x64/bin/ \$PATH&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; ~/.config/fish/config.fish
+&lt;span class="nb"&gt;source&lt;/span&gt; ~/.config/fish/config.fish
+npm i -g yarn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;O script era bem simples:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instalava o fish, meu shell favorito.&lt;/li&gt;
+&lt;li&gt;Configurava o git&lt;/li&gt;
+&lt;li&gt;Configurava o vim&lt;/li&gt;
+&lt;li&gt;Gerava o SSH da máquina (não era tão automatizado, pois tinha que colocar no github)&lt;/li&gt;
+&lt;li&gt;Instalava o Docker e o Docker Compose&lt;/li&gt;
+&lt;li&gt;Instalava o node&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://github.com/ansible/ansible"&gt;Ansible&lt;/a&gt; é uma ferramenta open-source de automação mais utilizada para gerenciar a configuração de servidores.  Porêm, vou usá-lo com meu ambiente de desenvolvimento local. Ela foi desenvolvida pela Red Hat em python, mas não precisa saber python para usar o ansible.&lt;/p&gt;
+&lt;p&gt;Geralmente não é comum utilizar no ambiente local, pelo fato ser muito poderoso pra fazer somente isso. Só que fiz para aprender mesmo. Achei a curva de aprendizado bem tranquila.&lt;/p&gt;
+&lt;p&gt;Algumas vantagens que percebi ao usar o Ansible:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;simplicidade, fácil de aprender&lt;/li&gt;
+&lt;li&gt;não precisa instalar agent na máquina que será automatizada&lt;/li&gt;
+&lt;li&gt;playbooks escritos em YAML&lt;/li&gt;
+&lt;li&gt;utilizar secrets para dados sensíveis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Em um próximo post vou mostrar as formas de instalar o ansible e como fiz a automação e estruturei os playbooks.&lt;/p&gt;</content><category term="misc"></category><category term="ansible"></category><category term="programação"></category><category term="environment"></category><category term="crostini"></category></entry><entry><title>Meus primeiros 2 anos de programação</title><link href="https://matheusmazoni.com.br/two-years-experience.html" rel="alternate"></link><published>2021-12-02T21:12:00-03:00</published><updated>2021-12-02T21:12:00-03:00</updated><author><name>Matheus Mazoni</name></author><id>tag:matheusmazoni.com.br,2021-12-02:/two-years-experience.html</id><summary type="html">&lt;p&gt;Um relato do início da minha carreira com programação até os dias de hoje.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Quando eu estava nos primeiros semestres da faculdade, eu já trabalhava, porém ainda não era na área de tecnologia. Nessa época, mandava currículo para várias empresas em busca de migrar para desenvolvimento logo no início, para quando eu estivesse prestes a me formar, eu já estaria trabalhando como Desenvolvedor Júnior. Pelo menos era isso o que eu almejava.&lt;/p&gt;
 &lt;p&gt;Eu estudava Python por fora, pois era muito simples e legível, e era com isso que eu queria trabalhar. Na faculdade estava vendo C/C++ que era bem mais complexo. Eu estava aplicando para muita vagas de estágio, mas eram poucas que me chamavam para o teste prático ou entrevista. Minhas soft-skills não eram muito boas. Nessas vagas de &lt;em&gt;entry-level&lt;/em&gt; quando você está no começo não tem muitas habilidades ou experiência, o recrutador olha muito mais como é sua comunicação, como você resolve problemas complexos e como trabalha em equipe. O que em mim não era tão desenvolvido assim na época.&lt;/p&gt;
 &lt;p&gt;Finalmente, quando eu estava finalizando o 3° semestre, meu irmão viu uma vaga para estágio no Linkedin postada por alguém com quem ele já tinha trabalhado e me indicou. Fiz o teste e passei. Foi onde conheci o PHP e o seu mini-universo por trás. No começo foi muito difícil, pois eu não sabia quase nada de desenvolvimento web, mas eu sempre fui correndo por fora, lembro que estudei bastante na Alura, os cursos de PHP, Javascript, CSS e Laravel. E se você curte PHP, recomendo muito os cursos do Vinicius Dias na Alura, e agora ele tem um &lt;a href="https://www.youtube.com/c/DiasdeDev"&gt;canal no Youtube&lt;/a&gt; também, sua didática é excelente.&lt;/p&gt;
 &lt;p&gt;Eu estava em uma empresa pública e não tinha nenhuma chance de eu ficar lá após o término da faculdade. Quando chegou a pandemia em Março de 2020, fomos todos trabalhar remotamente. Foi algo que pensei em ter apenas no meio da minha carreira, chegou mais rápido do que eu esperava. Como a maioria das empresas foram forçadas a entrar nesse modelo, houve uma estímulo na área de TI por causa do momento atual, então comecei a aplicar em algumas vagas. Dessa vez, diferente de quando eu procurava meu primeiro estágio em programação, agora eu conseguia avançar as fases, facilmente, dos processos seletivo.&lt;/p&gt;

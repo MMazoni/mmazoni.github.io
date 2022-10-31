@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Utilizando Ansible para automatizar ambiente local</title>
+
+            <link href="https://matheusmazoni.com.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Full Atom Feed" />
+            <link href="https://matheusmazoni.com.br/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="MMazoni Blog Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="https://matheusmazoni.com.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="https://matheusmazoni.com.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="https://matheusmazoni.com.br/theme/css/code_blocks/github.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Automatizar a configuração do meu ambiente de Desenvolvimento do Chromebook com Ansible">
+
+        <meta name="author" content="Matheus Mazoni">
+
+        <meta name="tags" content="ansible">
+        <meta name="tags" content="programação">
+        <meta name="tags" content="environment">
+        <meta name="tags" content="crostini">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="MMazoni Blog">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="https://matheusmazoni.com.br/author/matheus-mazoni.html">
+	<meta property="og:url" content="https://matheusmazoni.com.br/ansible-local-dev-1.html">
+	<meta property="og:title" content="Utilizando Ansible para automatizar ambiente local">
+	<meta property="article:published_time" content="2022-04-21 11:34:00-03:00">
+            <meta property="og:description" content="Automatizar a configuração do meu ambiente de Desenvolvimento do Chromebook com Ansible">
+
+            <meta property="og:image" content="https://matheusmazoni.com.br/theme/images/post-bg.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@mazoni_matheus">
+        <meta name="twitter:title" content="Utilizando Ansible para automatizar ambiente local">
+
+            <meta name="twitter:image" content="https://matheusmazoni.com.br/theme/images/post-bg.jpg">
+
+            <meta name="twitter:description" content="Automatizar a configuração do meu ambiente de Desenvolvimento do Chromebook com Ansible">
+</head>
+
+<body class="article-ansible-local-dev-1">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://matheusmazoni.com.br/">MMazoni Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('https://matheusmazoni.com.br/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Utilizando Ansible para automatizar ambiente local</h1>
+                        <span class="meta">Posted by
+                                <a href="https://matheusmazoni.com.br/author/matheus-mazoni.html">Matheus Mazoni</a>
+                             on qui 21 abril 2022
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>Se você leu os primeiros posts do meu blog, deve saber que tenho um chromebook. Hoje em dia, a forma mais fácil e nativa de desenvolvimento é utilizando o Crostini. É um LXC (Linux Containers), que vem na distro Debian por padrão, mas dá para mudar para Ubuntu, Arch Linux entre outras. Eu tenho um problema muito grande chamado: <em>espaço em disco</em>. Como meu chromebook tem apenas 16Gb de disco, o Crostini consegue alocar no máximo 7Gb, sendo que o sistema do Linux por si só já deve comer uns 2Gb.</p>
+<p>Geralmente faço reboot desse container para diferentes setups de desenvolvimento (Node+Docker, Terraform+Kubernetes, PHP+Python+MySQL). E fazer a instalação dos pacotes tudo na mão toda hora que eu troco entre esses setup é um saco. É aí que entra o Ansible. Conheci recentemente por uma indicação de um colega do trabalho. Pesquisei e vi uns vídeos da Alura sobre o assunto e já consegui brincar um pouquinho para automatizar o provisionamento de meu ambiente padrão de desenvolvimento no Crostini.</p>
+<p>A ideia era fazer a migração de um script bash para o Ansible. Segue abaixo o meu script:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Mazoni Environment Script!&quot;</span>
+
+sudo apt update
+sudo apt upgrade -y
+sudo apt install git curl fish wget -y
+
+<span class="c1"># fish</span>
+<span class="nb">echo</span> <span class="s2">&quot;Configuring fish...&quot;</span>
+mkdir ~/.config/fish
+curl -o ~/.config/fish/config.fish https://raw.githubusercontent.com/MMazoni/configuration-files/master/.config/fish/config.fish
+sudo chsh -s <span class="k">$(</span>which fish<span class="k">)</span> <span class="nv">$USER</span>
+
+<span class="c1"># vim</span>
+<span class="nb">echo</span> <span class="s2">&quot;Configuring vim...&quot;</span>
+curl -o ~/.vimrc https://raw.githubusercontent.com/MMazoni/configuration-files/master/.vimrc
+curl -o ~/.vim/colors/atlantic-dark.vim https://raw.githubusercurrent.com/MMazoni/configuration-files/master/.vim/colors/atlantic-dark.vim --create-dirs
+
+<span class="c1"># github</span>
+<span class="nb">echo</span> <span class="s2">&quot;Configuring git...&quot;</span>
+git config --global user.name <span class="s2">&quot;Matheus Mazoni&quot;</span>
+git config --global user.email <span class="s2">&quot;mmazoni.andrade@gmail.com&quot;</span>
+git config --global core.editor vim
+ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&quot;mmazoni.andrade@gmail.com&quot;</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&quot;</span>
+ssh-add ~/.ssh/id_rsa
+<span class="nv">sshcode</span><span class="o">=</span><span class="sb">`</span>cat ~/.ssh/id_rsa.pub<span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$sshcode</span>
+<span class="nb">read</span> -p <span class="s2">&quot;Press enter to continue&quot;</span>
+
+<span class="c1"># docker</span>
+<span class="nb">echo</span> <span class="s2">&quot;Installing docker...&quot;</span>
+sudo apt remove docker docker-engine docker.io containerd runc -y
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+<span class="nb">echo</span> <span class="se">\</span>
+  <span class="s2">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">  </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+sudo groupadd docker
+sudo usermod -aG docker <span class="nv">$USER</span>
+
+<span class="c1"># docker-compose</span>
+<span class="nb">echo</span> <span class="s2">&quot;Installing docker-compose...&quot;</span>
+sudo curl -L <span class="s2">&quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-</span><span class="k">$(</span>uname -s<span class="k">)</span><span class="s2">-</span><span class="k">$(</span>uname -m<span class="k">)</span><span class="s2">&quot;</span> -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+<span class="c1"># node</span>
+<span class="nb">echo</span> <span class="s2">&quot;Installing node and yarn...&quot;</span>
+<span class="nv">nodeversion</span><span class="o">=</span><span class="s2">&quot;v14.17.3&quot;</span>
+curl -o <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.node/node-</span><span class="nv">$nodeversion</span><span class="s2">-linux-x64.tar.xz&quot;</span> <span class="s2">&quot;https://nodejs.org/dist/</span><span class="nv">$nodeversion</span><span class="s2">/node-</span><span class="nv">$nodeversion</span><span class="s2">-linux-x64.tar.xz&quot;</span> --create-dirs
+tar -xvf <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.node/node-</span><span class="nv">$nodeversion</span><span class="s2">-linux-x64.tar.xz&quot;</span> -C ~/.node/
+rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.node/node-</span><span class="nv">$nodeversion</span><span class="s2">-linux-x64.tar.xz&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;set -x PATH \$HOME/.node/node-</span><span class="nv">$nodeversion</span><span class="s2">-linux-x64/bin/ \$PATH&quot;</span> &gt;&gt; ~/.config/fish/config.fish
+<span class="nb">source</span> ~/.config/fish/config.fish
+npm i -g yarn
+</code></pre></div>
+
+
+<p>O script era bem simples:</p>
+<ul>
+<li>Instalava o fish, meu shell favorito.</li>
+<li>Configurava o git</li>
+<li>Configurava o vim</li>
+<li>Gerava o SSH da máquina (não era tão automatizado, pois tinha que colocar no github)</li>
+<li>Instalava o Docker e o Docker Compose</li>
+<li>Instalava o node</li>
+</ul>
+<p><a href="https://github.com/ansible/ansible">Ansible</a> é uma ferramenta open-source de automação mais utilizada para gerenciar a configuração de servidores.  Porêm, vou usá-lo com meu ambiente de desenvolvimento local. Ela foi desenvolvida pela Red Hat em python, mas não precisa saber python para usar o ansible.</p>
+<p>Geralmente não é comum utilizar no ambiente local, pelo fato ser muito poderoso pra fazer somente isso. Só que fiz para aprender mesmo. Achei a curva de aprendizado bem tranquila.</p>
+<p>Algumas vantagens que percebi ao usar o Ansible:</p>
+<ul>
+<li>simplicidade, fácil de aprender</li>
+<li>não precisa instalar agent na máquina que será automatizada</li>
+<li>playbooks escritos em YAML</li>
+<li>utilizar secrets para dados sensíveis</li>
+</ul>
+<p>Em um próximo post vou mostrar as formas de instalar o ansible e como fiz a automação e estruturei os playbooks.</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="https://matheusmazoni.com.br/tag/ansible.html">ansible</a>, <a href="https://matheusmazoni.com.br/tag/programacao.html">programação</a>, <a href="https://matheusmazoni.com.br/tag/environment.html">environment</a>, <a href="https://matheusmazoni.com.br/tag/crostini.html">crostini</a></p>
+        </div>
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/matheus-mazoni/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/mazoni_matheus">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/MMazoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/mazoni.matheus">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:mmazoni.andrade@gmail.com">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Matheus Mazoni
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://matheusmazoni.com.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://matheusmazoni.com.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="https://matheusmazoni.com.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-140012978-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</body>
+
+</html>
